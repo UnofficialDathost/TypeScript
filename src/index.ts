@@ -13,4 +13,12 @@ export default class Dathost {
     public async account(): Promise<IAccount> {
         return <IAccount>await this.#http.get('/account')
     }
+
+    public async* domains(): AsyncGenerator<string> {
+        const domains: Array<string> = await this.#http.get('/custom-domains')
+
+        for (const element of domains) {
+            yield element['name']
+        }
+    }
 }

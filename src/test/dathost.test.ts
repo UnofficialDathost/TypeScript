@@ -16,4 +16,10 @@ describe('dathost', () => {
     it('Get account info', async () => {
         assert(await dathost.account() instanceof Object)
     })
+
+    it('Get domains', async () => {
+        for await (const domain of dathost.domains()) {
+            assert(typeof domain === 'string')
+        }
+    })
 })
