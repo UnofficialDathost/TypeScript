@@ -28,3 +28,15 @@ jobs:
           npm run test
       - name: Build with esbuild
         run: npm run build
+      - name: Get release version
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: echo ::set-env name=DATHOST_VERSION::$(npm info dathost version)
+      - name: Automatic Releases
+        uses: marvinpinto/action-automatic-releases@v1.2.0
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: "${{ DATHOST_VERSION }}"
+          files: dist/**
