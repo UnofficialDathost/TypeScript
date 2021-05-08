@@ -1,0 +1,42 @@
+{
+  "name": "dathost",
+  "version": "0.0.0",
+  "description": "TypeScript wrapper for Dathost's API",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/** --ext .js,.jsx,.ts,.tsx",
+    "build": "esbuild ./src/ --bundle --outfile=dist/dathost.js --minify --sourcemap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UnofficialDathost/TypeScript.git"
+  },
+  "keywords": [
+    "dathost",
+    "api",
+    "ts",
+    "typescript",
+    "csgo",
+    "game",
+    "server",
+    "unofficial"
+  ],
+  "author": "WardPearce",
+  "license": "GPL v3",
+  "bugs": {
+    "url": "https://github.com/UnofficialDathost/TypeScript/issues"
+  },
+  "homepage": "https://wardpearce.com/dathost",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "esbuild": "^0.11.20"
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
+    "@typescript-eslint/parser": "^4.22.1",
+    "eslint": "^7.25.0",
+    "typescript": "^4.2.4"
+  }
+}
