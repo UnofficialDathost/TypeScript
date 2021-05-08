@@ -1,6 +1,9 @@
 import HTTP from './http'
 
 import { IAccount } from './interfaces/account'
+import { IServer } from './interfaces/server'
+
+import Server from './server'
 
 
 export default class Dathost {
@@ -19,6 +22,14 @@ export default class Dathost {
 
         for (const element of domains) {
             yield element['name']
+        }
+    }
+
+    public async* servers(): AsyncGenerator<[IServer, Server]> {
+        const servers: Array<unknown> = await this.#http.get('/game-servers')
+
+        for (const server of servers) {
+            yield [<IServer>server, new Server(server['id'], this.#http)]
         }
     }
 }
