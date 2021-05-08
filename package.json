@@ -34,7 +34,8 @@
   },
   "homepage": "https://wardpearce.com/dathost",
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "steamid": "^1.1.3"
   },
   "devDependencies": {
     "@types/node": "^15.0.2",

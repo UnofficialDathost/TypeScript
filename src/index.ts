@@ -1,4 +1,5 @@
 import HTTP from './http'
+import { AxiosRequestConfig } from 'axios'
 
 import { IAccount } from './interfaces/account'
 import { IServer } from './interfaces/server'
@@ -11,8 +12,8 @@ import Server from './server'
 export default class Dathost {
     #http: HTTP
 
-    constructor (email: string, password: string, apiUrl = 'https://dathost.net/api/0.1/') {
-        this.#http = new HTTP(email, password, apiUrl)
+    constructor (email: string, password: string, apiUrl = 'https://dathost.net/api/0.1/', axiosConfig: AxiosRequestConfig = {}) {
+        this.#http = new HTTP(email, password, apiUrl, axiosConfig)
     }
 
     public async account(): Promise<IAccount> {

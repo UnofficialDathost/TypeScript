@@ -14,4 +14,8 @@ export default class Server {
     public async get(): Promise<IServer> {
         return <IServer>await this.#http.get(`/game-servers/${this.serverId}`)
     }
+
+    public async delete(): Promise<void> {
+        await this.#http.delete(`/game-servers/${this.serverId}`)
+    }
 }

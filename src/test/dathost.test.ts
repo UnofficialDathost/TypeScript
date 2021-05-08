@@ -3,14 +3,16 @@ import { assert } from 'chai'
 
 import Dathost from '../index'
 import Server from '../server'
+import ServerSettings from '../settings/server'
+import { IServer } from '../interfaces/server';
 
 describe('dathost', () => {
     let dathost: Dathost
 
     beforeEach(() => {
         dathost = new Dathost(
-            process.env.npm_package_config_datHostEmail || '',
-            process.env.npm_package_config_datHostPass || ''
+            process.env.npm_package_config_datHostEmail || 'wpearce6@gmail.com',
+            process.env.npm_package_config_datHostPass || 'pAe83Zp82eXGjgWCFV2y2ULV3xD7JhcFHH6QPDXA8EehpAKbY3'
         )
     })
 
@@ -29,5 +31,32 @@ describe('dathost', () => {
             assert(server[0] instanceof Object)
             assert(server[1] instanceof Server)
         }
+    })
+
+    describe('CS: GO server', () => {
+        let server: [IServer, Server]
+
+        it('Create server', async () => {
+            server = await dathost.createServer(new ServerSettings({
+                name: 'TS CS: GO Servers',
+                location: 'sydney'
+            }).csgo({
+                slots: 5,
+                gameToken: '',
+                tickrate: 128,
+                rconPassword: Math.random().toString(24).substr(2, 16)
+            }))
+
+            assert(server[0] instanceof Object)
+            assert(server[1] instanceof Server)
+        })
+
+        it('Get server details', async () => {
+            assert(await server[1].get() instanceof Object)
+        })
+
+        it('Delete server', async () => {
+            await server[1].delete()
+        })
     })
 })
