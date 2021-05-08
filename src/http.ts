@@ -17,19 +17,19 @@ export default class HTTP {
         return res.data
     }
 
-    public async get(url: string, config: AxiosRequestConfig = null): Promise<any> {
-        return this.handleResp(await this.#request.get(url, config))
+    public async get(url: string): Promise<any> {
+        return this.handleResp(await this.#request.get(url))
     }
 
-    public async delete(url: string, config: AxiosRequestConfig = null): Promise<any> {
-        return this.handleResp(await this.#request.delete(url, config))
+    public async delete(url: string): Promise<any> {
+        return this.handleResp(await this.#request.delete(url))
     }
 
-    public async post(url: string, config: AxiosRequestConfig = null): Promise<any> {
-        return this.handleResp(await this.#request.post(url, config))
+    public async post(url: string, data: unknown): Promise<any> {
+        return this.handleResp(await this.#request.post(url, data))
     }
 
-    public async put(url: string, config: AxiosRequestConfig = null): Promise<any> {
-        return this.handleResp(await this.#request.put(url, config))
+    public async put(url: string, data: unknown): Promise<any> {
+        return this.handleResp(await this.#request.put(url, data))
     }
 }

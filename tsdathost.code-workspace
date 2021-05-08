@@ -6,7 +6,15 @@
 	],
 	"settings": {
 		"cSpell.words": [
-			"dathost"
+			"autoload",
+			"autostop",
+			"csgo",
+			"dathost",
+			"rcon",
+			"teamfortress",
+			"teamspeak",
+			"tickrate",
+			"valheim"
 		]
 	}
 }
