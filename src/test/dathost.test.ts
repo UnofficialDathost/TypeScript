@@ -7,7 +7,10 @@ describe('dathost', () => {
     let dathost: Dathost
 
     beforeEach(() => {
-        dathost = new Dathost('', '')
+        dathost = new Dathost(
+            process.env.npm_package_config_datHostEmail,
+            process.env.npm_package_config_datHostPass
+        )
     })
 
     it('Get account info', async () => {

@@ -22,6 +22,10 @@
     "server",
     "unofficial"
   ],
+  "config": {
+    "datHostEmail": "",
+    "datHostPass": ""
+  },
   "author": "WardPearce",
   "license": "GPL v3",
   "bugs": {

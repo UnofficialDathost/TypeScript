@@ -1,9 +1,9 @@
-name: Production workflow
+name: Development workflow
 
 on:
   push:
     branches:
-    - main
+    - Development
 
 jobs:
   build:
@@ -18,5 +18,13 @@ jobs:
         run: npm install
       - name: Lint with eslint
         run: npm run lint
+      - name: Run unit tests
+        env:
+          EMAIL: {{ secrets.EMAIL }}
+          PASSWORD: {{ secrets.PASSWORD }}
+        run: |
+        npm config set dathost:datHostEmail $EMAIL
+        npm config set dathost:datHostPass $PASSWORD
+        npm run test
       - name: Build with esbuild
         run: npm run build
