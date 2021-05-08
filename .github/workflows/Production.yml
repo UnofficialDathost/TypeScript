@@ -26,12 +26,13 @@ jobs:
           npm config set dathost:datHostEmail $EMAIL
           npm config set dathost:datHostPass $PASSWORD
           npm run test
-      - name: Build with esbuild
-        run: npm run build
+      # Upload package to NPM before pulling package version.
       - name: Get release version
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: echo ::set-env name=DATHOST_VERSION::$(npm info dathost version)
+      - name: Build with esbuild
+        run: npm run build
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@v1.2.0
         with:
