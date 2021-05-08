@@ -23,8 +23,8 @@ jobs:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-        npm config set dathost:datHostEmail $EMAIL
-        npm config set dathost:datHostPass $PASSWORD
-        npm run test
+          npm config set dathost:datHostEmail $EMAIL
+          npm config set dathost:datHostPass $PASSWORD
+          npm run test
       - name: Build with esbuild
         run: npm run build
