@@ -20,7 +20,8 @@
     "csgo",
     "game",
     "server",
-    "unofficial"
+    "unofficial",
+    "wrapper"
   ],
   "config": {
     "datHostEmail": "",

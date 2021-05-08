@@ -13,9 +13,7 @@ export default class HTTP {
     }
 
     private handleResp(res: AxiosResponse): Promise<unknown> {
-        if (res.status === 200) {
-            return res.data
-        }
+        return res.data
     }
 
     public async get(url: string, config: AxiosRequestConfig = null): Promise<unknown> {
