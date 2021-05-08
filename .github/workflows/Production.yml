@@ -38,5 +38,5 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: false
-          title: "${{ DATHOST_VERSION }}"
+          title: "${{ env.DATHOST_VERSION }}"
           files: dist/**
