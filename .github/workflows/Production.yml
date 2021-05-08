@@ -3,7 +3,7 @@ name: Development workflow
 on:
   push:
     branches:
-    - Development
+    - main
 
 jobs:
   build:
