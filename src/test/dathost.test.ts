@@ -11,8 +11,8 @@ describe('dathost', () => {
 
     beforeEach(() => {
         dathost = new Dathost(
-            process.env.npm_package_config_datHostEmail || 'wpearce6@gmail.com',
-            process.env.npm_package_config_datHostPass || 'pAe83Zp82eXGjgWCFV2y2ULV3xD7JhcFHH6QPDXA8EehpAKbY3'
+            process.env.npm_package_config_datHostEmail || '',
+            process.env.npm_package_config_datHostPass || ''
         )
     })
 
