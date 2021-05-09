@@ -96,7 +96,7 @@ describe('dathost', () => {
         })
 
         it('Console send', async () => {
-            await server[1].consoleSend('https://github.com/UnofficialDathost/TypeScript')
+            await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
         })
 
         it('Delete server', async () => {
@@ -156,7 +156,7 @@ describe('dathost', () => {
         })
 
         it('Console send', async () => {
-            await server[1].consoleSend('https://github.com/UnofficialDathost/TypeScript')
+            await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
         })
 
 
@@ -220,7 +220,7 @@ describe('dathost', () => {
         })
 
         it('Console send', async () => {
-            await server[1].consoleSend('https://github.com/UnofficialDathost/TypeScript')
+            await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
         })
 
         it('Delete server', async () => {
@@ -277,7 +277,7 @@ describe('dathost', () => {
         })
 
         it('Console send', async () => {
-            await server[1].consoleSend('https://github.com/UnofficialDathost/TypeScript')
+            await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
         })
 
         it('Delete server', async () => {
