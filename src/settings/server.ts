@@ -33,7 +33,7 @@ export default class ServerSettings {
         if (paramGiven(settings.mysql))
             this.#payload.append('enable_mysql', settings.mysql.toString())
         if (paramGiven(settings.scheduledCommands))
-            this.#payload.append('scheduled_commands', settings.scheduledCommands.toString())
+            this.#payload.append('scheduled_commands', JSON.stringify(settings.scheduledCommands))
         if (paramGiven(settings.userData))
             this.#payload.append('user_data', settings.userData)
         if (paramGiven(settings.rebootOnCrash))
@@ -82,7 +82,7 @@ export default class ServerSettings {
         if (paramGiven(settings.gameMode))
             this.#payload.append('csgo_settings.game_mode', settings.gameMode)
         if (paramGiven(settings.autoloadConfigs))
-            this.#payload.append('csgo_settings.autoload_configs', settings.autoloadConfigs.toString())
+            this.#payload.append('csgo_settings.autoload_configs', JSON.stringify(settings.autoloadConfigs))
         if (paramGiven(settings.disableBots))
             this.#payload.append('csgo_settings.disable_bots', settings.disableBots.toString())
         if (paramGiven(settings.workshopStartMapId))
@@ -104,9 +104,9 @@ export default class ServerSettings {
         if (paramGiven(settings.pure))
             this.#payload.append('csgo_settings.pure_server', settings.pure.toString())
         if (paramGiven(settings.admins))
-            this.#payload.append('csgo_settings.sourcemod_admins', formatAdmins(settings.admins).toString())
+            this.#payload.append('csgo_settings.sourcemod_admins', JSON.stringify(formatAdmins(settings.admins)))
         if (paramGiven(settings.plugins))
-            this.#payload.append('csgo_settings.sourcemod_plugins', settings.plugins.toString())
+            this.#payload.append('csgo_settings.sourcemod_plugins', JSON.stringify(settings.plugins))
         if (paramGiven(settings.steamKey))
             this.#payload.append('csgo_settings.workshop_authkey', settings.steamKey)
         if (paramGiven(settings.workshopId))
@@ -134,7 +134,7 @@ export default class ServerSettings {
         if (paramGiven(settings.password))
             this.#payload.append('teamfortress2_settings.password', settings.password)
         if (paramGiven(settings.admins))
-            this.#payload.append('teamfortress2_settings.sourcemod_admins', formatAdmins(settings.admins).toString())
+            this.#payload.append('teamfortress2_settings.sourcemod_admins', JSON.stringify(formatAdmins(settings.admins)))
 
         return this
     }
