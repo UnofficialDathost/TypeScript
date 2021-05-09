@@ -5,6 +5,7 @@ import Dathost from '../index'
 import Server from '../server'
 import ServerSettings from '../settings/server'
 import { IServer } from '../interfaces/server'
+import Backup from '../server/backup'
 
 
 const generatePassword = (): string => {
@@ -104,6 +105,14 @@ describe('dathost', () => {
             assert(serverDup[0] instanceof Object)
             assert(serverDup[1] instanceof Server)
             await serverDup[1].delete()
+        })
+
+        it('List backups on servers', async () => {
+            for await (const backup of server[1].backups()) {
+                assert(backup[0] instanceof Object)
+                assert(backup[1] instanceof Backup)
+                await backup[1].restore()
+            }
         })
 
         it('Delete server', async () => {

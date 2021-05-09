@@ -33,11 +33,10 @@ export default class Dathost {
     }
 
     public async* servers(): AsyncGenerator<[IServer, Server]> {
-        const servers: Array<unknown> = await this.#http.get('/game-servers')
+        const servers: Array<IServer> = await this.#http.get('/game-servers')
 
         for (const server of servers) {
-            console.log(server)
-            yield [<IServer>server, this.server(server['id'])]
+            yield [server, this.server(server['id'])]
         }
     }
 
