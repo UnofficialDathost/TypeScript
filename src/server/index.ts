@@ -91,11 +91,4 @@ export default class Server {
         const server: IServer = <IServer>await this.#http.post(`${this.url}/duplicate`)
         return [server, new Server(server.id, this.#http)]
     }
-
-    public async* backups(): AsyncGenerator<[IBackup, Backup]> {
-        const backups: Array<IBackup> = await this.#http.get(`${this.url}/backups`)
-        for (const backup in backups) {
-            yield [, this.backup(backup['name'])]
-        }
-    }
 }

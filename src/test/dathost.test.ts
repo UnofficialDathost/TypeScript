@@ -106,9 +106,6 @@ describe('dathost', () => {
             await serverDup[1].delete()
         })
 
-        it('Backups on server', async () => {
-        })
-
         it('Delete server', async () => {
             await server[1].delete()
         })
