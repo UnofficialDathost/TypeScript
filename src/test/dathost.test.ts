@@ -61,6 +61,18 @@ describe('dathost', () => {
             assert(await server[1].get() instanceof Object)
         })
 
+        it('Start server', async () => {
+            await server[1].start()
+        })
+
+        it('Stop server', async () => {
+            await server[1].stop()
+        })
+
+        it('Restart server', async () => {
+            await server[1].restart()
+        })
+
         it('Delete server', async () => {
             await server[1].delete()
         })
@@ -81,6 +93,18 @@ describe('dathost', () => {
 
         it('Get server details', async () => {
             assert(await server[1].get() instanceof Object)
+        })
+
+        it('Start server', async () => {
+            await server[1].start(true)
+        })
+
+        it('Stop server', async () => {
+            await server[1].stop()
+        })
+
+        it('Restart server', async () => {
+            await server[1].restart()
         })
 
         it('Delete server', async () => {
@@ -108,6 +132,18 @@ describe('dathost', () => {
             assert(await server[1].get() instanceof Object)
         })
 
+        it('Start server', async () => {
+            await server[1].start(false)
+        })
+
+        it('Stop server', async () => {
+            await server[1].stop()
+        })
+
+        it('Restart server', async () => {
+            await server[1].restart()
+        })
+
         it('Delete server', async () => {
             await server[1].delete()
         })
@@ -125,6 +161,18 @@ describe('dathost', () => {
 
         it('Get server details', async () => {
             assert(await server[1].get() instanceof Object)
+        })
+
+        it('Start server', async () => {
+            await server[1].start()
+        })
+
+        it('Stop server', async () => {
+            await server[1].stop()
+        })
+
+        it('Restart server', async () => {
+            await server[1].restart()
         })
 
         it('Delete server', async () => {

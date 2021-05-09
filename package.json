@@ -4,7 +4,7 @@
   "description": "TypeScript wrapper for Dathost's API",
   "main": "src/index.ts",
   "scripts": {
-    "test": "mocha src/test/*.test.ts --watch-extensions ts --require ts-node/register",
+    "test": "mocha src/test/*.test.ts --watch-extensions ts --require ts-node/register --timeout 300000",
     "lint": "eslint src/** --ext .js,.jsx,.ts,.tsx",
     "build": "esbuild ./src/ --bundle --outfile=dist/dathost.js --minify --sourcemap"
   },

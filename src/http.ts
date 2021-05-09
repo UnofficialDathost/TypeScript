@@ -6,12 +6,12 @@ export default class HTTP {
 
     constructor (email: string, password: string, apiUrl: string, config: AxiosRequestConfig) {
         this.#request = axios.create({
-            ...config,
             baseURL: apiUrl,
             headers: {
                 'Authorization': `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
-            }
+            },
+            ...config
         })
 
         this.#request.interceptors.response.use(

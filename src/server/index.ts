@@ -18,4 +18,24 @@ export default class Server {
     public async delete(): Promise<void> {
         await this.#http.delete(`/game-servers/${this.serverId}`)
     }
+
+    public async start(allowHostReassignment: boolean = null): Promise<void> {
+        let payload: URLSearchParams
+
+        if (allowHostReassignment != null) {
+            payload = new URLSearchParams()
+            payload.append('allow_host_reassignment', allowHostReassignment.toString())
+        } else
+            payload = null
+
+        await this.#http.post(`/game-servers/${this.serverId}/start`, payload)
+    }
+
+    public async restart(): Promise<void> {
+        await this.#http.post(`/game-servers/${this.serverId}/restart`)
+    }
+
+    public async stop(): Promise<void> {
+        await this.#http.post(`/game-servers/${this.serverId}/stop`)
+    }
 }
