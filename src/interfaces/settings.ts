@@ -1,4 +1,4 @@
-export interface ISettings {
+export interface IServerSettings {
   name?: string
   location?: string
   customDomain?: string
@@ -14,24 +14,27 @@ export interface ISettings {
   preferDedicated?: boolean
 }
 
-export interface ICsgo {
+export interface ITf2Settings {
   slots?: number
+  rconPassword?: string
+  gotv?: boolean
+  sourcemod?: boolean
+  insecure?: boolean
+  password?: string
+  admins?: Array<string|number>
+}
+
+export interface ICsgoSettings extends ITf2Settings {
   tickrate?: number
   gameToken?: string
-  rconPassword?: string
   gameMode?: string
   autoloadConfigs?: Array<string>
   disableBots?: boolean
   workshopStartMapId?: number
   csayPlugin?: boolean
-  gotv?: boolean
-  sourcemod?: boolean
-  insecure?: boolean
   mapGroup?: string
   startMap?: string
-  password?: string
   pure?: boolean
-  admins?: Array<string|number>
   plugins?: Array<string>
   steamKey?: string
   workshopId?: number

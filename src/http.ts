@@ -18,7 +18,7 @@ export default class HTTP {
             response => response.data,
             error => {
                 console.log(
-                    `Request failed with code ${error.response.status}`,
+                    `Request failed with status code ${error.response.status}`,
                     '\n',
                     error.response.data
                 )

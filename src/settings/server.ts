@@ -1,4 +1,4 @@
-import { ISettings, ICsgo } from '../interfaces/settings'
+import { IServerSettings, ICsgoSettings, ITf2Settings } from '../interfaces/settings'
 import { formatAdmins, paramGiven } from './helper'
 
 const validTickrates: Array<number> = [
@@ -9,12 +9,11 @@ const validTickrates: Array<number> = [
     128
 ]
 
-
 export default class ServerSettings {
     #payload: URLSearchParams
     #gameSelected: boolean
 
-    constructor (settings: ISettings = {}) {
+    constructor (settings: IServerSettings = {}) {
 
         this.#payload = new URLSearchParams()
         this.#gameSelected = false
@@ -40,7 +39,6 @@ export default class ServerSettings {
         if (paramGiven(settings.maxDiskUsageGb)) {
             if (settings.maxDiskUsageGb > 100 || settings.maxDiskUsageGb < 30)
                     throw Error(`${settings.maxDiskUsageGb} isn't a valid size.`)
-
             this.#payload.append('max_disk_usage_gb', settings.maxDiskUsageGb.toString())
         }
         if (paramGiven(settings.manualSortOrder))
@@ -62,7 +60,7 @@ export default class ServerSettings {
         this.#gameSelected = true
     }
 
-    public csgo (settings: ICsgo = {}): this {
+    public csgo (settings: ICsgoSettings = {}): this {
         this.checkGameSelected()
         this.#payload.append('game', 'csgo')
 
@@ -117,9 +115,25 @@ export default class ServerSettings {
         return this
     }
 
-    public tf2 (): this {
+    public tf2 (settings: ITf2Settings = {}): this {
         this.checkGameSelected()
         this.#payload.append('game', 'teamfortress2')
+
+        if (paramGiven(settings.slots))
+            this.#payload.append('teamfortress2_settings.slots', settings.slots.toString())
+        if (paramGiven(settings.rconPassword))
+            this.#payload.append('teamfortress2_settings.rcon', settings.rconPassword)
+        if (paramGiven(settings.gotv))
+            this.#payload.append('teamfortress2_settings.enable_gotv', settings.gotv.toString())
+        if (paramGiven(settings.sourcemod))
+            this.#payload.append('teamfortress2_settings.enable_sourcemod', settings.sourcemod.toString())
+        if (paramGiven(settings.insecure))
+            this.#payload.append('teamfortress2_settings.insecure', settings.insecure.toString())
+        if (paramGiven(settings.password))
+            this.#payload.append('teamfortress2_settings.password', settings.password)
+        if (paramGiven(settings.admins))
+            this.#payload.append('teamfortress2_settings.sourcemod_admins', formatAdmins(settings.admins).toString())
+
         return this
     }
 
