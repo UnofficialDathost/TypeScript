@@ -41,7 +41,9 @@ export default class File {
     return await this.#http.get(`${this.url}?as_text=${asText.toString()}`)
   }
 
-  public async upload(data: FormData): Promise<void> {
-    await this.#http.post(`https://upload.dathost.net/api/0.1/game-servers/${this.serverId}/files/${this.path}`, data)
+  public async upload(data: Blob): Promise<void> {
+    const payload = new FormData()
+    payload.append('file', data)
+    await this.#http.post(`https://upload.dathost.net/api/0.1/game-servers/${this.serverId}/files/${this.path}`, payload)
   }
 }
