@@ -272,14 +272,6 @@ describe('dathost', () => {
             await server[1].syncFiles()
         })
 
-        it('Console retrieve', async () => {
-            await server[1].consoleRetrieve()
-        })
-
-        it('Console send', async () => {
-            await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
-        })
-
         it('Delete server', async () => {
             await server[1].delete()
         })
