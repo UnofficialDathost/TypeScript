@@ -1,5 +1,5 @@
 import {
-    IServerSettings, ICsgoSettings, ITf2Settings, IValheimSettings
+    IServerSettings, ICsgoSettings, ITf2Settings, IValheimSettings, ITeamspeak
 } from '../interfaces/settings'
 import { formatAdmins, paramGiven } from '../helpers/misc'
 
@@ -121,8 +121,11 @@ export default class ServerSettings {
         this.checkGameSelected()
         this.#payload.append('game', 'teamfortress2')
 
-        if (paramGiven(settings.slots))
+        if (paramGiven(settings.slots)) {
+            if (settings.slots < 5 || settings.slots > 500)
+                throw Error(`Slots ${settings.slots} is invalid.`)
             this.#payload.append('teamfortress2_settings.slots', settings.slots.toString())
+        }
         if (paramGiven(settings.rconPassword))
             this.#payload.append('teamfortress2_settings.rcon', settings.rconPassword)
         if (paramGiven(settings.gotv))
@@ -155,9 +158,16 @@ export default class ServerSettings {
         return this
     }
 
-    public teamspeak (): this {
+    public teamspeak (settings: ITeamspeak = {}): this {
         this.checkGameSelected()
         this.#payload.append('game', 'teamspeak3')
+
+        if (paramGiven(settings.slots)) {
+            if (settings.slots < 5 || settings.slots > 500)
+                throw Error(`Slots ${settings.slots} is invalid.`)
+            this.#payload.append('teamspeak3_settings.slots', settings.slots.toString())
+        }
+
         return this
     }
 }

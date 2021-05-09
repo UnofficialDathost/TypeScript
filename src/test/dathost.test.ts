@@ -112,4 +112,23 @@ describe('dathost', () => {
             await server[1].delete()
         })
     })
+
+    describe('Teamspeak server', () => {
+        let server: [IServer, Server]
+
+        it('Create server', async () => {
+            server = await dathost.createServer(new ServerSettings({
+                name: 'TS Teamspeak server',
+                location: 'sydney'
+            }).teamspeak({slots: 5}))
+        })
+
+        it('Get server details', async () => {
+            assert(await server[1].get() instanceof Object)
+        })
+
+        it('Delete server', async () => {
+            await server[1].delete()
+        })
+    })
 })

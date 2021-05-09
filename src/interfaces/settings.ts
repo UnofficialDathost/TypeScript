@@ -47,3 +47,8 @@ export interface IValheimSettings {
   plus?: boolean
   admins?: Array<string | number>
 }
+
+
+export interface ITeamspeak {
+  slots?: number
+}
