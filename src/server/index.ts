@@ -3,8 +3,13 @@ import HTTP from '../http'
 import { IServer } from '../interfaces/server'
 import { IMetrics } from '../interfaces/metrics'
 import { IBackup } from '../interfaces/backup'
+import { IFile } from '../interfaces/file'
+import { IFileSettings } from '../interfaces/settings'
+
+import { paramGiven } from '../helpers/misc'
 
 import Backup from './backup'
+import File from './file'
 
 import ServerSettings from '../settings/server'
 
@@ -23,6 +28,10 @@ export default class Server {
 
     public backup(backupName: string): Backup {
         return new Backup(this.serverId, backupName, this.#http)
+    }
+
+    public file(path: string): File {
+        return new File(this.serverId, path, this.#http)
     }
 
     public async get(): Promise<IServer> {
@@ -96,6 +105,28 @@ export default class Server {
         const backups: Array<IBackup> = await this.#http.get(`${this.url}/backups`)
         for (const backup of backups) {
             yield [backup, this.backup(backup.name)]
+        }
+    }
+
+    public async* files(settings: IFileSettings = {}): AsyncGenerator<[IFile, File]> {
+        let files: Array<IFile>
+        if (settings) {
+            const payload = new URLSearchParams()
+            if (paramGiven(settings.hideDefaultFiles))
+                payload.append('hide_default_files', settings.hideDefaultFiles.toString())
+            if (paramGiven(settings.deletedFiles))
+                payload.append('include_deleted_files', settings.deletedFiles.toString())
+            if (paramGiven(settings.path))
+                payload.append('path', settings.path)
+            if (paramGiven(settings.fileSizes))
+                payload.append('with_filesizes', settings.fileSizes.toString())
+
+            files = await this.#http.get(`${this.url}/files?${payload.toString()}`)
+        } else
+            files = await this.#http.get(`${this.url}/files`)
+        
+        for (const file of files) {
+            yield [file, this.file(file.path)]
         }
     }
 }

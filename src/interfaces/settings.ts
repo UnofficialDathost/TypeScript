@@ -48,7 +48,13 @@ export interface IValheimSettings {
   admins?: Array<string | number>
 }
 
-
 export interface ITeamspeak {
   slots?: number
+}
+
+export interface IFileSettings {
+  hideDefaultFiles?: boolean
+  deletedFiles?: boolean
+  path?: string
+  fileSizes?: boolean
 }

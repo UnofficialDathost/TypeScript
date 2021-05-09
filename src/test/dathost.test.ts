@@ -6,6 +6,7 @@ import Server from '../server'
 import ServerSettings from '../settings/server'
 import { IServer } from '../interfaces/server'
 import Backup from '../server/backup'
+import File from '../server/file'
 
 
 const generatePassword = (): string => {
@@ -115,6 +116,13 @@ describe('dathost', () => {
             }
         })
 
+        it('List files on server', async () => {
+            for await (const file of server[1].files()) {
+                assert(file[0] instanceof Object)
+                assert(file[1] instanceof File)
+            }
+        })
+
         it('Delete server', async () => {
             await server[1].delete()
         })
@@ -175,6 +183,12 @@ describe('dathost', () => {
             await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
         })
 
+        it('List files on server', async () => {
+            for await (const file of server[1].files({hideDefaultFiles: false, deletedFiles: true, path: '/', fileSizes: true})) {
+                assert(file[0] instanceof Object)
+                assert(file[1] instanceof File)
+            }
+        })
 
         it('Delete server', async () => {
             await server[1].delete()
