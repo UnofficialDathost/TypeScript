@@ -95,7 +95,7 @@ export default class Server {
     public async* backups(): AsyncGenerator<[IBackup, Backup]> {
         const backups: Array<IBackup> = await this.#http.get(`${this.url}/backups`)
         for (const backup of backups) {
-            yield [backup, this.backup(backup['name'])]
+            yield [backup, this.backup(backup.name)]
         }
     }
 }

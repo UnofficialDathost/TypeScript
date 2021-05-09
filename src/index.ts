@@ -3,6 +3,7 @@ import { AxiosRequestConfig } from 'axios'
 
 import { IAccount } from './interfaces/account'
 import { IServer } from './interfaces/server'
+import { IDomain } from './interfaces/domain'
 
 import ServerSettings from './settings/server'
 
@@ -21,10 +22,10 @@ export default class Dathost {
     }
 
     public async* domains(): AsyncGenerator<string> {
-        const domains: Array<string> = await this.#http.get('/custom-domains')
+        const domains: Array<IDomain> = await this.#http.get('/custom-domains')
 
         for (const element of domains) {
-            yield element['name']
+            yield element.name
         }
     }
 
@@ -36,7 +37,7 @@ export default class Dathost {
         const servers: Array<IServer> = await this.#http.get('/game-servers')
 
         for (const server of servers) {
-            yield [server, this.server(server['id'])]
+            yield [server, this.server(server.id)]
         }
     }
 
