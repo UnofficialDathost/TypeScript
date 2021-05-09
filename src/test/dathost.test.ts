@@ -87,4 +87,29 @@ describe('dathost', () => {
             await server[1].delete()
         })
     })
+
+    describe('Valheim server', () => {
+        let server: [IServer, Server]
+
+        it('Create server', async () => {
+            server = await dathost.createServer(new ServerSettings({
+                name: 'TS Valheim server',
+                location: 'sydney'
+            }).valheim({
+                password: generatePassword(),
+                worldName: 'dathost ts',
+                plus: false,
+                admins: ['[U:1:116962485]', 'STEAM_0:1:186064092',
+                         '76561198017567105', 76561198214871321]
+            }))
+        })
+
+        it('Get server details', async () => {
+            assert(await server[1].get() instanceof Object)
+        })
+
+        it('Delete server', async () => {
+            await server[1].delete()
+        })
+    })
 })

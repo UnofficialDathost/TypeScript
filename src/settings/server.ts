@@ -1,4 +1,6 @@
-import { IServerSettings, ICsgoSettings, ITf2Settings } from '../interfaces/settings'
+import {
+    IServerSettings, ICsgoSettings, ITf2Settings, IValheimSettings
+} from '../interfaces/settings'
 import { formatAdmins, paramGiven } from './helper'
 
 const validTickrates: Array<number> = [
@@ -137,9 +139,19 @@ export default class ServerSettings {
         return this
     }
 
-    public valheim (): this {
+    public valheim (settings: IValheimSettings = {}): this {
         this.checkGameSelected()
         this.#payload.append('game', 'valheim')
+
+        if (paramGiven(settings.password))
+            this.#payload.append('valheim_settings.password', settings.password)
+        if (paramGiven(settings.worldName))
+            this.#payload.append('valheim_settings.world_name', settings.worldName)
+        if (paramGiven(settings.plus))
+            this.#payload.append('valheim_settings.enable_valheimplus', settings.plus.toString())
+        if (paramGiven(settings.admins))
+            this.#payload.append('valheim_settings.admins_steamid64', formatAdmins(settings.admins, false).toString())
+
         return this
     }
 

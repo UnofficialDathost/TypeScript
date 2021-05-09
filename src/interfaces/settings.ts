@@ -40,3 +40,10 @@ export interface ICsgoSettings extends ITf2Settings {
   workshopId?: number
   mapSource?: string
 }
+
+export interface IValheimSettings {
+  password?: string
+  worldName?: string
+  plus?: boolean
+  admins?: Array<string | number>
+}
