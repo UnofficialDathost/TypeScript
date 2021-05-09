@@ -77,14 +77,14 @@ describe('dathost', () => {
                 slots: 5,
                 rconPassword: generatePassword()
             }))
+        })
 
-            it('Get server details', async () => {
-                assert(await server[1].get() instanceof Object)
-            })
-    
-            it('Delete server', async () => {
-                await server[1].delete()
-            })
+        it('Get server details', async () => {
+            assert(await server[1].get() instanceof Object)
+        })
+
+        it('Delete server', async () => {
+            await server[1].delete()
         })
     })
 })
