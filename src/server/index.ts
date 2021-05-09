@@ -1,5 +1,9 @@
 import HTTP from '../http'
+
 import { IServer } from '../interfaces/server'
+import { IMetrics } from '../interfaces/metrics'
+
+import ServerSettings from '../settings/server'
 
 export default class Server {
     serverId: string
@@ -36,5 +40,13 @@ export default class Server {
 
     public async stop(): Promise<void> {
         await this.#http.post(`/game-servers/${this.serverId}/stop`)
+    }
+
+    public async metrics(): Promise<IMetrics> {
+        return <IMetrics>await this.#http.get(`/game-servers/${this.serverId}/metrics`)
+    }
+
+    public async update(settings: ServerSettings): Promise<void> {
+        await this.#http.put(`/game-servers/${this.serverId}`, settings.payload)
     }
 }

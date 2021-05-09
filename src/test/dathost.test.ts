@@ -61,6 +61,16 @@ describe('dathost', () => {
             assert(await server[1].get() instanceof Object)
         })
 
+        it('Get server metrics', async () => {
+            assert(await server[1].metrics() instanceof Object)
+        })
+
+        it('Update server', async () => {
+            await server[1].update(new ServerSettings({
+                name: 'TS CS: GO Server update'
+            }))
+        })
+
         it('Start server', async () => {
             await server[1].start()
         })
@@ -95,8 +105,18 @@ describe('dathost', () => {
             assert(await server[1].get() instanceof Object)
         })
 
+        it('Get server metrics', async () => {
+            assert(await server[1].metrics() instanceof Object)
+        })
+    
         it('Start server', async () => {
             await server[1].start(true)
+        })
+
+        it('Update server', async () => {
+            await server[1].update(new ServerSettings({
+                name: 'TS TF2 Server update'
+            }))
         })
 
         it('Stop server', async () => {
@@ -132,6 +152,16 @@ describe('dathost', () => {
             assert(await server[1].get() instanceof Object)
         })
 
+        it('Get server metrics', async () => {
+            assert(await server[1].metrics() instanceof Object)
+        })
+
+        it('Update server', async () => {
+            await server[1].update(new ServerSettings({
+                name: 'TS Valheim Server update'
+            }))
+        })
+
         it('Start server', async () => {
             await server[1].start(false)
         })
@@ -161,6 +191,16 @@ describe('dathost', () => {
 
         it('Get server details', async () => {
             assert(await server[1].get() instanceof Object)
+        })
+
+        it('Get server metrics', async () => {
+            assert(await server[1].metrics() instanceof Object)
+        })
+
+        it('Update server', async () => {
+            await server[1].update(new ServerSettings({
+                name: 'TS Teamspeak Server update'
+            }))
         })
 
         it('Start server', async () => {
