@@ -1,14 +1,15 @@
-import SteamID from 'steamid'
+import { SteamID } from "./steam"
 
 export const formatAdmins = (admins: Array<string | number>, format32 = true): Array<string> => {
-  const admins32: Array<string> = []
-  for (const admin in admins) {
-      admins32.push(
-          new SteamID(admin).getSteam2RenderedID() ? format32 :
-          (new SteamID(admin).getSteamID64()).toString()
-      )
+  const formattedIds: Array<string> = []
+  for (const index in admins) {
+    const sid = new SteamID(admins[index].toString())
+    if (format32)
+      formattedIds.push(sid.steam2(true))
+    else
+      formattedIds.push(sid.steam64())
   }
-  return admins32
+  return formattedIds
 }
 
 export const paramGiven = (value: unknown): boolean => {

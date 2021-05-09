@@ -98,7 +98,9 @@ describe('dathost', () => {
             }).valheim({
                 password: generatePassword(),
                 worldName: 'dathost ts',
-                plus: false
+                plus: false,
+                admins: ['[U:1:116962485]', 'STEAM_0:1:186064092',
+                         '76561198017567105', 76561198214871321]
             }))
         })
 

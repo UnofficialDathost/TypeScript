@@ -150,8 +150,8 @@ export default class ServerSettings {
         if (paramGiven(settings.plus))
             this.#payload.append('valheim_settings.enable_valheimplus', settings.plus.toString())
         if (paramGiven(settings.admins))
-            this.#payload.append('valheim_settings.admins_steamid64', formatAdmins(settings.admins, false).toString())
-
+            this.#payload.append('valheim_settings.admins_steamid64', JSON.stringify(formatAdmins(settings.admins, false)))
+        
         return this
     }
 
