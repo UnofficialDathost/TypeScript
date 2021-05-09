@@ -1,7 +1,7 @@
 import {
     IServerSettings, ICsgoSettings, ITf2Settings, IValheimSettings
 } from '../interfaces/settings'
-import { formatAdmins, paramGiven } from './helper'
+import { formatAdmins, paramGiven } from '../helpers/misc'
 
 const validTickrates: Array<number> = [
     64,
