@@ -31,8 +31,8 @@ export default class Server {
         await this.#http.post(`/game-servers/${this.serverId}/start`, payload)
     }
 
-    public async restart(): Promise<void> {
-        await this.#http.post(`/game-servers/${this.serverId}/restart`)
+    public async reset(): Promise<void> {
+        await this.#http.post(`/game-servers/${this.serverId}/reset`)
     }
 
     public async stop(): Promise<void> {

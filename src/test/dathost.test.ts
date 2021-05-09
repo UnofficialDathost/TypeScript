@@ -69,8 +69,8 @@ describe('dathost', () => {
             await server[1].stop()
         })
 
-        it('Restart server', async () => {
-            await server[1].restart()
+        it('Reset server', async () => {
+            await server[1].reset()
         })
 
         it('Delete server', async () => {
@@ -103,8 +103,8 @@ describe('dathost', () => {
             await server[1].stop()
         })
 
-        it('Restart server', async () => {
-            await server[1].restart()
+        it('Reset server', async () => {
+            await server[1].reset()
         })
 
         it('Delete server', async () => {
@@ -140,8 +140,8 @@ describe('dathost', () => {
             await server[1].stop()
         })
 
-        it('Restart server', async () => {
-            await server[1].restart()
+        it('Reset server', async () => {
+            await server[1].reset()
         })
 
         it('Delete server', async () => {
@@ -171,8 +171,8 @@ describe('dathost', () => {
             await server[1].stop()
         })
 
-        it('Restart server', async () => {
-            await server[1].restart()
+        it('Reset server', async () => {
+            await server[1].reset()
         })
 
         it('Delete server', async () => {
