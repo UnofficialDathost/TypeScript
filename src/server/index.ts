@@ -1,12 +1,11 @@
 import HTTP from '../http'
-
 import { IServer } from '../interfaces/server'
 
 export default class Server {
-    #http
     serverId: string
+    #http: HTTP
 
-    constructor (serverId: string, http: HTTP) {
+    constructor(serverId: string, http: HTTP) {
         this.#http = http
         this.serverId = serverId
     }
