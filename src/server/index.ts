@@ -79,4 +79,9 @@ export default class Server {
         payload.append('line', line)
         await this.#http.post(`${this.url}/console`, payload)
     }
+
+    public async duplicate(): Promise<[IServer, Server]> {
+        const server: IServer = <IServer>await this.#http.post(`${this.url}/duplicate`)
+        return [server, new Server(server.id, this.#http)]
+    }
 }

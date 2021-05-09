@@ -99,6 +99,13 @@ describe('dathost', () => {
             await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
         })
 
+        it('Duplicate server', async () => {
+            const serverDup: [IServer, Server] = await server[1].duplicate()
+            assert(serverDup[0] instanceof Object)
+            assert(serverDup[1] instanceof Server)
+            await serverDup[1].delete()
+        })
+    
         it('Delete server', async () => {
             await server[1].delete()
         })
