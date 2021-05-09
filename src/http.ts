@@ -35,11 +35,13 @@ export default class HTTP {
         return await this.#request.delete(url)
     }
 
-    public async post(url: string, data: URLSearchParams = null): Promise<any> {
+    public async post(url: string, data: URLSearchParams | FormData = null): Promise<any> {
+        if (data instanceof FormData)
+            return await this.#request.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}})
         return await this.#request.post(url, data)
     }
 
-    public async put(url: string, data: URLSearchParams = null): Promise<any> {
+    public async put(url: string, data: URLSearchParams): Promise<any> {
         return await this.#request.put(url, data)
     }
 }

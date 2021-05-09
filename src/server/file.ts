@@ -40,4 +40,8 @@ export default class File {
   public async download(asText = false): Promise<ArrayBuffer> {
     return await this.#http.get(`${this.url}?as_text=${asText.toString()}`)
   }
+
+  public async upload(data: FormData): Promise<void> {
+    await this.#http.post(`https://upload.dathost.net/api/0.1/game-servers/${this.serverId}/files/${this.path}`, data)
+  }
 }
