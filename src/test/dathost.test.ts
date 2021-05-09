@@ -184,7 +184,7 @@ describe('dathost', () => {
         })
 
         it('List files on server', async () => {
-            for await (const file of server[1].files({hideDefaultFiles: true, deletedFiles: true, path: '/', fileSizes: true})) {
+            for await (const file of server[1].files({hideDefaultFiles: true, deletedFiles: true, fileSizes: true})) {
                 assert(file[0] instanceof Object)
                 assert(file[1] instanceof File)
             }
