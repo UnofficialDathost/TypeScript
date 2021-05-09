@@ -14,12 +14,16 @@ export default class Server {
         this.serverId = serverId
     }
 
+    public get url(): string {
+        return `/game-servers/${this.serverId}`
+    }
+
     public async get(): Promise<IServer> {
-        return <IServer>await this.#http.get(`/game-servers/${this.serverId}`)
+        return <IServer>await this.#http.get(this.url)
     }
 
     public async delete(): Promise<void> {
-        await this.#http.delete(`/game-servers/${this.serverId}`)
+        await this.#http.delete(this.url)
     }
 
     public async start(allowHostReassignment: boolean = null): Promise<void> {
@@ -31,35 +35,35 @@ export default class Server {
         } else
             payload = null
 
-        await this.#http.post(`/game-servers/${this.serverId}/start`, payload)
+        await this.#http.post(`${this.url}/start`, payload)
     }
 
     public async reset(): Promise<void> {
-        await this.#http.post(`/game-servers/${this.serverId}/reset`)
+        await this.#http.post(`${this.url}/reset`)
     }
 
     public async stop(): Promise<void> {
-        await this.#http.post(`/game-servers/${this.serverId}/stop`)
+        await this.#http.post(`${this.url}/stop`)
     }
 
     public async metrics(): Promise<IMetrics> {
-        return <IMetrics>await this.#http.get(`/game-servers/${this.serverId}/metrics`)
+        return <IMetrics>await this.#http.get(`${this.url}/metrics`)
     }
 
     public async update(settings: ServerSettings): Promise<void> {
-        await this.#http.put(`/game-servers/${this.serverId}`, settings.payload)
+        await this.#http.put(this.url, settings.payload)
     }
 
     public async regenerateFtpPassword(): Promise<void> {
-        await this.#http.post(`/game-servers/${this.serverId}/regenerate-ftp-password`)
+        await this.#http.post(`${this.url}/regenerate-ftp-password`)
     }
 
     public async syncFiles(): Promise<void> {
-        await this.#http.post(`/game-servers/${this.serverId}/sync-files`)
+        await this.#http.post(`${this.url}/sync-files`)
     }
 
     public async consoleRetrieve(maxLines: number = null): Promise<string[]> {
-        let url = `/game-servers/${this.serverId}/console`
+        let url = `${this.url}/console`
 
         if (maxLines != null) {
             if (maxLines < 1 || maxLines > 100000)
@@ -73,6 +77,6 @@ export default class Server {
     public async consoleSend(line: string): Promise<void> {
         const payload = new URLSearchParams()
         payload.append('line', line)
-        await this.#http.post(`/game-servers/${this.serverId}/console`, payload)
+        await this.#http.post(`${this.url}/console`, payload)
     }
 }
