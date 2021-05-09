@@ -2,6 +2,9 @@ import HTTP from '../http'
 
 import { IServer } from '../interfaces/server'
 import { IMetrics } from '../interfaces/metrics'
+import { IBackup } from '../interfaces/backup'
+
+import Backup from './backup'
 
 import ServerSettings from '../settings/server'
 
@@ -16,6 +19,10 @@ export default class Server {
 
     public get url(): string {
         return `/game-servers/${this.serverId}`
+    }
+
+    public backup(backupName: string): Backup {
+        return new Backup(this.serverId, backupName, this.#http)
     }
 
     public async get(): Promise<IServer> {
@@ -83,5 +90,12 @@ export default class Server {
     public async duplicate(): Promise<[IServer, Server]> {
         const server: IServer = <IServer>await this.#http.post(`${this.url}/duplicate`)
         return [server, new Server(server.id, this.#http)]
+    }
+
+    public async* backups(): AsyncGenerator<[IBackup, Backup]> {
+        const backups: Array<IBackup> = await this.#http.get(`${this.url}/backups`)
+        for (const backup in backups) {
+            yield [, this.backup(backup['name'])]
+        }
     }
 }

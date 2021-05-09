@@ -36,6 +36,7 @@ export default class Dathost {
         const servers: Array<unknown> = await this.#http.get('/game-servers')
 
         for (const server of servers) {
+            console.log(server)
             yield [<IServer>server, this.server(server['id'])]
         }
     }
