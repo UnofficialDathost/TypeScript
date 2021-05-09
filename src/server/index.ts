@@ -70,9 +70,9 @@ export default class Server {
         return (await this.#http.get(url))['lines']
     }
 
-    public async consoleSend(query: string): Promise<void> {
+    public async consoleSend(line: string): Promise<void> {
         const payload = new URLSearchParams()
-        payload.append('query', query)
+        payload.append('line', line)
         await this.#http.post(`/game-servers/${this.serverId}/console`, payload)
     }
 }
