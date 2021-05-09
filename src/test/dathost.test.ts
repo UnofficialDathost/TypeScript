@@ -83,6 +83,22 @@ describe('dathost', () => {
             await server[1].reset()
         })
 
+        it('Regenerate ftp password', async () => {
+            await server[1].regenerateFtpPassword()
+        })
+
+        it('Sync files', async () => {
+            await server[1].syncFiles()
+        })
+
+        it('Console retrieve', async () => {
+            await server[1].consoleRetrieve()
+        })
+
+        it('Console send', async () => {
+            await server[1].consoleSend('https://github.com/UnofficialDathost/TypeScript')
+        })
+
         it('Delete server', async () => {
             await server[1].delete()
         })
@@ -126,6 +142,23 @@ describe('dathost', () => {
         it('Reset server', async () => {
             await server[1].reset()
         })
+
+        it('Regenerate ftp password', async () => {
+            await server[1].regenerateFtpPassword()
+        })
+
+        it('Sync files', async () => {
+            await server[1].syncFiles()
+        })
+
+        it('Console retrieve', async () => {
+            await server[1].consoleRetrieve(300)
+        })
+
+        it('Console send', async () => {
+            await server[1].consoleSend('https://github.com/UnofficialDathost/TypeScript')
+        })
+
 
         it('Delete server', async () => {
             await server[1].delete()
@@ -174,6 +207,22 @@ describe('dathost', () => {
             await server[1].reset()
         })
 
+        it('Regenerate ftp password', async () => {
+            await server[1].regenerateFtpPassword()
+        })
+
+        it('Sync files', async () => {
+            await server[1].syncFiles()
+        })
+
+        it('Console retrieve', async () => {
+            await server[1].consoleRetrieve()
+        })
+
+        it('Console send', async () => {
+            await server[1].consoleSend('https://github.com/UnofficialDathost/TypeScript')
+        })
+
         it('Delete server', async () => {
             await server[1].delete()
         })
@@ -213,6 +262,22 @@ describe('dathost', () => {
 
         it('Reset server', async () => {
             await server[1].reset()
+        })
+
+        it('Regenerate ftp password', async () => {
+            await server[1].regenerateFtpPassword()
+        })
+
+        it('Sync files', async () => {
+            await server[1].syncFiles()
+        })
+
+        it('Console retrieve', async () => {
+            await server[1].consoleRetrieve()
+        })
+
+        it('Console send', async () => {
+            await server[1].consoleSend('https://github.com/UnofficialDathost/TypeScript')
         })
 
         it('Delete server', async () => {
