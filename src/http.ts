@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { FormData } from 'formdata-node'
+import FormData from './helpers/formData'
 
 export default class HTTP {
     #request: AxiosInstance
