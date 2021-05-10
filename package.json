@@ -34,6 +34,7 @@
   },
   "homepage": "https://wardpearce.com/dathost",
   "dependencies": {
+    "@types/cuint": "^0.2.1",
     "axios": "^0.21.1",
     "formdata-node": "^3.3.1"
   },
