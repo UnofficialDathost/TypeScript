@@ -36,6 +36,7 @@
   "dependencies": {
     "@types/cuint": "^0.2.1",
     "axios": "^0.21.1",
+    "cuint": "^0.2.2",
     "formdata-node": "^3.3.1"
   },
   "devDependencies": {
