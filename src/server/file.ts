@@ -1,5 +1,5 @@
 import HTTP from '../http'
-import Server from './'
+import { FormData } from 'formdata-node'
 
 export default class File {
   serverId: string
