@@ -7,6 +7,8 @@ import ServerSettings from '../settings/server'
 import { IServer } from '../interfaces/server'
 import Backup from '../server/backup'
 import File from '../server/file'
+import MatchSettings from '../settings/match'
+import Match from '../match'
 
 
 const generatePassword = (): string => {
@@ -126,6 +128,44 @@ describe('dathost', () => {
         it('Delete server', async () => {
             await server[1].delete()
         })
+
+        it('Create match', async () => {
+            const matchServer = await dathost.createServer(new ServerSettings({
+              name: 'TS CS:GO Match',
+              location: 'sydney'
+            }).csgo({
+              slots: 5,
+              gameToken: '',
+              tickrate: 128,
+              rconPassword: generatePassword()
+            }))
+
+            const match = await matchServer[1].createMatch(new MatchSettings({
+                connectionTime: 300,
+                knifeRound: false,
+                waitForSpectators: false,
+                warmupTime: 15
+            }).team_1(
+                [
+                    "[U:1:116962485]",
+                    76561198017567105,
+                    "STEAM_0:1:186064092",
+                    "76561198214871321"
+                ]
+            ).team_2(
+                [
+                    "[U:1:320762620]",
+                    "STEAM_1:1:83437164",
+                    76561198214871324,
+                    "76561198214871323"
+                ]
+            ))
+
+            assert(match[0] instanceof Object)
+            assert(match[1] instanceof Match)
+
+            assert(await match[1].get() instanceof Object)
+      })
     })
 
     describe('TF2 Server', () => {

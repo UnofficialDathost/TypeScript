@@ -8,6 +8,7 @@ import { IDomain } from './interfaces/domain'
 import ServerSettings from './settings/server'
 
 import Server from './server'
+import Match from './match'
 
 
 export default class Dathost {
@@ -29,8 +30,12 @@ export default class Dathost {
         }
     }
 
-    server (serverId: string): Server {
+    public server (serverId: string): Server {
         return new Server(serverId, this.#http)
+    }
+
+    public match(matchId: string): Match {
+      return new Match(matchId, this.#http)
     }
 
     public async* servers(): AsyncGenerator<[IServer, Server]> {

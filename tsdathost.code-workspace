@@ -1,24 +1,32 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"cSpell.words": [
-			"autoload",
-			"autostop",
-			"csay",
-			"csgo",
-			"dathost",
-			"gotv",
-			"mapgroup",
-			"rcon",
-			"sourcemod",
-			"teamfortress",
-			"teamspeak",
-			"tickrate",
-			"valheim"
-		]
-	}
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "editor.tabSize": 4,
+        "prettier.useTabs": true,
+        "prettier.tabWidth": 4,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+        "typescript.validate.enable": false,
+        "javascript.validate.enable": true,
+        "cSpell.words": [
+            "autoload",
+            "autostop",
+            "csay",
+            "csgo",
+            "dathost",
+            "gotv",
+            "mapgroup",
+            "playwin",
+            "rcon",
+            "sourcemod",
+            "teamfortress",
+            "teamspeak",
+            "tickrate",
+            "valheim"
+        ]
+    }
 }

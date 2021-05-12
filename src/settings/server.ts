@@ -15,7 +15,7 @@ export default class ServerSettings {
     #payload: URLSearchParams
     #gameSelected: boolean
 
-    constructor (settings: IServerSettings = {}) {
+    constructor(settings: IServerSettings = {}) {
 
         this.#payload = new URLSearchParams()
         this.#gameSelected = false
@@ -51,7 +51,7 @@ export default class ServerSettings {
             this.#payload.append('prefer_dedicated', settings.preferDedicated.toString())
     }
 
-    get payload(): URLSearchParams {
+    public get payload(): URLSearchParams {
         return this.#payload
     }
 
@@ -62,7 +62,7 @@ export default class ServerSettings {
         this.#gameSelected = true
     }
 
-    public csgo (settings: ICsgoSettings = {}): this {
+    public csgo(settings: ICsgoSettings = {}): this {
         this.checkGameSelected()
         this.#payload.append('game', 'csgo')
 
@@ -117,7 +117,7 @@ export default class ServerSettings {
         return this
     }
 
-    public tf2 (settings: ITf2Settings = {}): this {
+    public tf2(settings: ITf2Settings = {}): this {
         this.checkGameSelected()
         this.#payload.append('game', 'teamfortress2')
 
@@ -142,7 +142,7 @@ export default class ServerSettings {
         return this
     }
 
-    public valheim (settings: IValheimSettings = {}): this {
+    public valheim(settings: IValheimSettings = {}): this {
         this.checkGameSelected()
         this.#payload.append('game', 'valheim')
 
@@ -158,7 +158,7 @@ export default class ServerSettings {
         return this
     }
 
-    public teamspeak (settings: ITeamspeak = {}): this {
+    public teamspeak(settings: ITeamspeak = {}): this {
         this.checkGameSelected()
         this.#payload.append('game', 'teamspeak3')
 

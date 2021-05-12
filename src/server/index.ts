@@ -5,13 +5,16 @@ import { IMetrics } from '../interfaces/metrics'
 import { IBackup } from '../interfaces/backup'
 import { IFile } from '../interfaces/file'
 import { IFileSettings } from '../interfaces/settings'
+import { IMatch } from '../interfaces/match'
 
 import { paramGiven } from '../helpers/misc'
 
 import Backup from './backup'
 import File from './file'
+import Match from '../match'
 
 import ServerSettings from '../settings/server'
+import MatchSettings from '../settings/match'
 
 export default class Server {
     serverId: string
@@ -24,6 +27,14 @@ export default class Server {
 
     public get url(): string {
         return `/game-servers/${this.serverId}`
+    }
+
+    public async createMatch(settings: MatchSettings): Promise<[IMatch, Match]> {
+        const payload: URLSearchParams = settings.payload
+        payload.append('game_server_id', this.serverId)
+
+        const match: IMatch = await this.#http.post('/matches', payload)
+        return [match, new Match(match.id, this.#http)]
     }
 
     public backup(backupName: string): Backup {
