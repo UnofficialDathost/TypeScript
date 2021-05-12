@@ -30,7 +30,7 @@ export default class Dathost {
         }
     }
 
-    public server (serverId: string): Server {
+    public server(serverId: string): Server {
         return new Server(serverId, this.#http)
     }
 

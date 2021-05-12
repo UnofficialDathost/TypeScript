@@ -34,13 +34,25 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: echo ::set-env name=DATHOST_VERSION::$(npm info dathost version)
+      - name: Delete npmrc
+        run: rm -f ./.npmrc
       - name: Build with esbuild
         run: npm run build
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@v1.2.0
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "Version ${{ env.DATHOST_VERSION }}"
           prerelease: false
           title: "${{ env.DATHOST_VERSION }}"
           files: dist/**
+      - name: Build docs
+        run: npm run docs
+      - name: Upload docs to dathost.wardpearce.com
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./docs/
+          server-dir: ts/docs/

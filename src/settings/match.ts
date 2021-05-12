@@ -22,6 +22,9 @@ export default class MatchSettings {
         return this.#payload
     }
 
+    /** 
+    * Used to add server to match, if using createMatch function this will be overwritten.
+    */
     public addServer(serverId: string): void {
         this.#payload.append('game_server_id', serverId)
     }
