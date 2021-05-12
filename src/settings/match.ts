@@ -20,6 +20,10 @@ export default class MatchSettings {
         return this.#payload
     }
 
+    public addServer(serverId: string): Promise<void> {
+        this.#payload.append('game_server_id', serverId)
+    }
+
     public playwin(webhook: string = null): this {
         this.#payload.append('enable_playwin', 'true')
         if (webhook != null)

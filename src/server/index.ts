@@ -30,10 +30,8 @@ export default class Server {
     }
 
     public async createMatch(settings: MatchSettings): Promise<[IMatch, Match]> {
-        const payload: URLSearchParams = settings.payload
-        payload.append('game_server_id', this.serverId)
-
-        const match: IMatch = await this.#http.post('/matches', payload)
+        settings.addServer(this.serverId)
+        const match: IMatch = await this.#http.post('/matches', settings.payload)
         return [match, new Match(match.id, this.#http)]
     }
 
