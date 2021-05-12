@@ -46,3 +46,13 @@ jobs:
           prerelease: false
           title: "${{ env.DATHOST_VERSION }}"
           files: dist/**
+      - name: Build docs
+        run: npm run docs
+      - name: Upload docs to dathost.wardpearce.com
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./docs/
+          server-dir: ts/docs/
