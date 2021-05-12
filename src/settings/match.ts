@@ -35,7 +35,7 @@ export default class MatchSettings {
         return this
     }
 
-    private formatPlayers(players: Array<string | number>): Promise<string> {
+    private formatPlayers(players: Array<string | number>): string {
         let formattedPlayers = ''
         for (const player of players) {
             const sid = new SteamID(player.toString())
