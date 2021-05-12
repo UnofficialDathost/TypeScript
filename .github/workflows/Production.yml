@@ -1,4 +1,4 @@
-name: Development workflow
+name: Production workflow
 
 on:
   push:
@@ -26,7 +26,10 @@ jobs:
           npm config set dathost:datHostEmail $EMAIL
           npm config set dathost:datHostPass $PASSWORD
           npm run test
-      # Upload package to NPM before pulling package version.
+      - name: Pack to NPM
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
       - name: Get release version
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'

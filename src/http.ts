@@ -1,34 +1,48 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import FormData from './helpers/formData'
 
 export default class HTTP {
     #request: AxiosInstance
 
-    constructor (email: string, password: string, apiUrl: string) {
+    constructor (email: string, password: string, apiUrl: string, config: AxiosRequestConfig) {
         this.#request = axios.create({
             baseURL: apiUrl,
             headers: {
-                'Authorization': `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`
-            }
+                'Authorization': `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            ...config
         })
+
+        this.#request.interceptors.response.use(
+            response => response.data,
+            error => {
+                console.log(
+                    `Request failed with status code ${error.response.status}`,
+                    '\n',
+                    error.response.data
+                )
+                return Promise.reject(error)
+            }
+        )
     }
 
-    private handleResp(res: AxiosResponse): Promise<unknown> {
-        return res.data
+    public async get(url: string): Promise<any> {
+        return await this.#request.get(url)
     }
 
-    public async get(url: string, config: AxiosRequestConfig = null): Promise<unknown> {
-        return this.handleResp(await this.#request.get(url, config))
+    public async delete(url: string): Promise<any> {
+        return await this.#request.delete(url)
     }
 
-    public async delete(url: string, config: AxiosRequestConfig = null): Promise<unknown> {
-        return this.handleResp(await this.#request.delete(url, config))
+    public async post(url: string, data: URLSearchParams | FormData = null): Promise<any> {
+        if (data instanceof FormData)
+            return await this.#request.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}})
+        return await this.#request.post(url, data)
     }
 
-    public async post(url: string, config: AxiosRequestConfig = null): Promise<unknown> {
-        return this.handleResp(await this.#request.post(url, config))
-    }
-
-    public async put(url: string, config: AxiosRequestConfig = null): Promise<unknown> {
-        return this.handleResp(await this.#request.put(url, config))
+    public async put(url: string, data: URLSearchParams): Promise<any> {
+        return await this.#request.put(url, data)
     }
 }

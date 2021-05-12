@@ -1,10 +1,10 @@
 {
   "name": "dathost",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "TypeScript wrapper for Dathost's API",
   "main": "src/index.ts",
   "scripts": {
-    "test": "mocha src/test/*.test.ts --watch-extensions ts --require ts-node/register",
+    "test": "mocha src/test/*.test.ts --watch-extensions ts --require ts-node/register --timeout 300000",
     "lint": "eslint src/** --ext .js,.jsx,.ts,.tsx",
     "build": "esbuild ./src/ --bundle --outfile=dist/dathost.js --minify --sourcemap"
   },
@@ -34,14 +34,17 @@
   },
   "homepage": "https://wardpearce.com/dathost",
   "dependencies": {
+    "@types/cuint": "^0.2.1",
     "axios": "^0.21.1",
-    "esbuild": "^0.11.20"
+    "cuint": "^0.2.2",
+    "form-data": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^15.0.2",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "chai": "^4.3.4",
+    "esbuild": "^0.11.20",
     "eslint": "^7.25.0",
     "mocha": "^8.4.0",
     "ts-node-register": "^1.0.0",
