@@ -42,7 +42,7 @@ jobs:
         uses: marvinpinto/action-automatic-releases@v1.2.0
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "Version ${{ env.DATHOST_VERSION }}"
           prerelease: false
           title: "${{ env.DATHOST_VERSION }}"
           files: dist/**

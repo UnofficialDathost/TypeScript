@@ -9,6 +9,11 @@ This is a unofficial asynchronous wrapper for Dathost's API.
 * 100% test coverage.
 * Modern Typescript
 
+### Install
+
+- npm: `npm install dathost`
+- browser: [Releases](https://github.com/UnofficialDathost/TypeScript/releases)
+
 ### Documentation
 
 [Documentation](http://dathost.wardpearce.com/ts/docs)
