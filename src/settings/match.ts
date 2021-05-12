@@ -6,6 +6,8 @@ export default class MatchSettings {
     #payload: URLSearchParams
 
     constructor(settings: IMatchSettings = {}) {
+        this.#payload = new URLSearchParams()
+
         if (paramGiven(settings.connectionTime))
             this.#payload.append('connection_time', settings.connectionTime.toString())
         if (paramGiven(settings.knifeRound))
