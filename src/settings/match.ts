@@ -20,7 +20,7 @@ export default class MatchSettings {
         return this.#payload
     }
 
-    public addServer(serverId: string): Promise<void> {
+    public addServer(serverId: string): void {
         this.#payload.append('game_server_id', serverId)
     }
 
