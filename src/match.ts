@@ -10,7 +10,7 @@ export default class Match {
         this.matchId = matchId
     }
 
-    public async get(): IMatch {
+    public async get(): Promise<IMatch> {
         return <IMatch> await this.#http.get(`/matches/${this.matchId}`)
     }
 }
