@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/UnofficialDathost/TypeScript/issues"
   },
-  "homepage": "https://wardpearce.com/dathost",
+  "homepage": "https://dathost.wardpearce.com/ts/docs",
   "dependencies": {
     "@types/cuint": "^0.2.1",
     "axios": "^0.21.1",
