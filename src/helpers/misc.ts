@@ -11,7 +11,3 @@ export const formatAdmins = (admins: Array<string | number>, format32 = true): A
   }
   return formattedIds
 }
-
-export const paramGiven = (value: unknown): boolean => {
-  return typeof value !== 'undefined'
-}

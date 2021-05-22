@@ -27,6 +27,7 @@
             "teamspeak",
             "tickrate",
             "valheim"
-        ]
+        ],
+        "god.tsconfig": "./tsconfig.json"
     }
 }
