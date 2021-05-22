@@ -1,6 +1,22 @@
 {
     "compilerOptions": {
+        "target": "esnext",
         "module": "commonjs",
-        "target": "es2020",
+        "noImplicitAny": false,
+        "strict": true,
+        "jsx": "preserve",
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
     }
 }

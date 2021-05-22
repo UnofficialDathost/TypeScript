@@ -12,7 +12,7 @@ import Match from '../match'
 
 
 const generatePassword = (): string => {
-    return Math.random().toString(24).substr(2, 16)
+  return Math.random().toString(24).substr(2, 16)
 }
 
 
