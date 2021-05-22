@@ -36,12 +36,12 @@
   "homepage": "https://dathost.wardpearce.com/ts/docs",
   "dependencies": {
     "@types/cuint": "^0.2.1",
-    "@types/node": "^15.6.0",
     "axios": "^0.21.1",
     "cuint": "^0.2.2",
     "form-data": "^4.0.0"
   },
   "devDependencies": {
+    "@types/node": "^15.6.0",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "chai": "^4.3.4",
