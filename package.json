@@ -1,8 +1,9 @@
 {
   "name": "dathost",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "TypeScript wrapper for Dathost's API",
   "main": "src/index.ts",
+  "files": ["src"],
   "scripts": {
     "test": "mocha src/test/*.test.ts --watch-extensions ts --require ts-node/register --timeout 300000",
     "lint": "eslint src/** --ext .js,.jsx,.ts,.tsx",
