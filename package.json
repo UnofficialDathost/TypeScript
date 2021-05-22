@@ -3,7 +3,6 @@
   "version": "0.0.3",
   "description": "TypeScript wrapper for Dathost's API",
   "main": "src/index.ts",
-  "type": "module",
   "scripts": {
     "test": "mocha src/test/*.test.ts --watch-extensions ts --require ts-node/register --timeout 300000",
     "lint": "eslint src/** --ext .js,.jsx,.ts,.tsx",
