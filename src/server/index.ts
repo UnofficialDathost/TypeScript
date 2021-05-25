@@ -6,6 +6,7 @@ import { IBackup } from '../interfaces/backup'
 import { IFile } from '../interfaces/file'
 import { IFileSettings } from '../interfaces/settings'
 import { IMatch } from '../interfaces/match'
+import { IConsoleAuth } from '../interfaces/console'
 
 import Backup from './backup'
 import File from './file'
@@ -100,6 +101,10 @@ export default class Server {
     const payload = new URLSearchParams()
     payload.append('line', line)
     await this.http.post(`${this.url}/console`, payload)
+  }
+
+  public async consoleAuth(): Promise<IConsoleAuth> {
+    return <IConsoleAuth>await this.http.get(`${this.url}/console-auth`)
   }
 
   public async duplicate(): Promise<[IServer, Server]> {

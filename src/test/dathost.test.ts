@@ -60,6 +60,10 @@ describe('dathost', () => {
             assert(server[0] instanceof Object)
             assert(server[1] instanceof Server)
         })
+      
+        it('Get console auth', async () => {
+            assert(await server[1].consoleAuth() instanceof Object)
+        })
 
         it('Get server details', async () => {
             assert(await server[1].get() instanceof Object)
