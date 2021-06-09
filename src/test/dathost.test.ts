@@ -1,4 +1,4 @@
-import { describe, expect, beforeEach, it } from '@jest/globals'
+import { describe, expect, beforeEach, afterEach, it } from '@jest/globals'
 
 import Dathost from '../index'
 import Server from '../server'
@@ -31,7 +31,7 @@ describe('Dathost Tests', () => {
 
   it('Get domains', async () => {
     for await (const domain of dathost.domains()) {
-      expect(domain).resolves.toBe('string')
+      expect(typeof domain).toBe('string')
     }
   })
 
@@ -43,161 +43,170 @@ describe('Dathost Tests', () => {
   })
 
   describe('CS: GO server', () => {
-  let server: [IServer, Server]
+    let server: [IServer, Server]
 
-  it('Create server', async () => {
-    server = await dathost.createServer(new ServerSettings({
-        name: 'TS CS: GO Server',
+    beforeEach(async () => {
+      server = await dathost.createServer(new ServerSettings({
+          name: 'TS CS: GO Server',
+          location: 'sydney'
+      }).csgo({
+          slots: 5,
+          gameToken: '',
+          tickrate: 128,
+          rconPassword: generatePassword()
+      }))
+    })
+
+    afterEach(async () => {
+      try {
+        await server[1].delete()
+      // eslint-disable-next-line no-empty
+      } catch {  }
+    })
+
+    it('Server return', async () => {
+      expect(server[0]).toBeInstanceOf(Object)
+      expect(server[1]).toBeInstanceOf(Server)
+    })
+
+    it('Get console auth', async () => {
+      expect(await server[1].consoleAuth()).toBeInstanceOf(Object)
+    })
+
+    it('Get server details', async () => {
+      expect(await server[1].get()).toBeInstanceOf(Object)
+    })
+
+    it('Get server metrics', async () => {
+      expect(await server[1].metrics()).toBeInstanceOf(Object)
+    })
+
+    it('Update server', async () => {
+      expect(async () => {
+        await server[1].update(new ServerSettings({
+          name: 'TS CS: GO Server update'
+        }))
+      }
+      ).not.toThrow()
+    })
+
+    it('Start server', async () => {
+      expect(async () => {
+        await server[1].start()
+      }).not.toThrow()
+    })
+
+    it('Stop server', async () => {
+      expect(async () => {
+        await server[1].stop()
+      }).not.toThrow()
+    })
+
+    it('Reset server', async () => {
+      expect(async () => {
+        await server[1].reset()
+      }).not.toThrow()
+    })
+
+    it('Regenerate ftp password', async () => {
+      expect(async () => {
+        await server[1].regenerateFtpPassword()
+      }).not.toThrow()
+    })
+
+    it('Sync files', async () => {
+      expect(async () => {
+        await server[1].syncFiles()
+      }).not.toThrow()
+    })
+
+    it('Console retrieve', async () => {
+      expect(async () => {
+        await server[1].consoleRetrieve()
+      }).not.toThrow()
+    })
+
+    it('Console send', async () => {
+      expect(async () => {
+        await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
+      }).not.toThrow()
+    })
+
+    it('Duplicate server', async () => {
+      const serverDup: [IServer, Server] = await server[1].duplicate()
+      expect(serverDup[0]).toBeInstanceOf(Object)
+      expect(serverDup[1]).toBeInstanceOf(Server)
+      expect(async () => {
+        await serverDup[1].delete()
+      }).not.toThrow()
+    })
+
+    it('List backups on servers', async () => {
+      for await (const backup of server[1].backups()) {
+        expect(backup[0]).toBeInstanceOf(Object)
+        expect(backup[1]).toBeInstanceOf(Backup)
+        expect(async () => {
+          await backup[1].restore()
+        }).not.toThrow()
+      }
+    })
+
+    it('List files on server', async () => {
+      for await (const file of server[1].files()) {
+        expect(file[0]).toBeInstanceOf(Object)
+        expect(file[1]).toBeInstanceOf(File)
+      }
+    })
+
+    it('Delete server', async () => {
+      expect(async () => {
+        await server[1].delete()
+      }).not.toThrow()
+    })
+
+    it('Create match', async () => {
+      const matchServer = await dathost.createServer(new ServerSettings({
+        name: 'TS CS:GO Match',
         location: 'sydney'
-    }).csgo({
+      }).csgo({
         slots: 5,
         gameToken: '',
         tickrate: 128,
         rconPassword: generatePassword()
-    }))
-
-    expect(server[0]).toBeInstanceOf(Object)
-    expect(server[1]).toBeInstanceOf(Server)
-  })
-
-  it('Get console auth', async () => {
-    expect(await server[1].consoleAuth()).toBeInstanceOf(Object)
-  })
-
-  it('Get server details', async () => {
-    expect(await server[1].get()).toBeInstanceOf(Object)
-  })
-
-  it('Get server metrics', async () => {
-    expect(await server[1].metrics()).toBeInstanceOf(Object)
-  })
-
-  it('Update server', async () => {
-    expect(async () => {
-      await server[1].update(new ServerSettings({
-        name: 'TS CS: GO Server update'
       }))
-    }
-    ).not.toThrow()
-  })
 
-  it('Start server', async () => {
-    expect(async () => {
-      await server[1].start()
-    }).not.toThrow()
-  })
+      const match = await matchServer[1].createMatch(new MatchSettings({
+          connectionTime: 300,
+          knifeRound: false,
+          waitForSpectators: false,
+          warmupTime: 15
+      }).team_1(
+          [
+              "[U:1:116962485]",
+              76561198017567105,
+              "STEAM_0:1:186064092",
+              "76561198214871321"
+          ]
+      ).team_2(
+          [
+              "[U:1:320762620]",
+              "STEAM_1:1:83437164",
+              76561198214871324,
+              "76561198214871323"
+          ]
+      ))
 
-  it('Stop server', async () => {
-    expect(async () => {
-      await server[1].stop()
-    }).not.toThrow()
-  })
+      expect(match[0]).toBeInstanceOf(Object)
+      expect(match[1]).toBeInstanceOf(Match)
 
-  it('Reset server', async () => {
-    expect(async () => {
-      await server[1].reset()
-    }).not.toThrow()
-  })
-
-  it('Regenerate ftp password', async () => {
-    expect(async () => {
-      await server[1].regenerateFtpPassword()
-    }).not.toThrow()
-  })
-
-  it('Sync files', async () => {
-    expect(async () => {
-      await server[1].syncFiles()
-    }).not.toThrow()
-  })
-
-  it('Console retrieve', async () => {
-    expect(async () => {
-      await server[1].consoleRetrieve()
-    }).not.toThrow()
-  })
-
-  it('Console send', async () => {
-    expect(async () => {
-      await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
-    }).not.toThrow()
-  })
-
-  it('Duplicate server', async () => {
-    const serverDup: [IServer, Server] = await server[1].duplicate()
-    expect(serverDup[0]).toBeInstanceOf(Object)
-    expect(serverDup[1]).toBeInstanceOf(Server)
-    expect(async () => {
-      await serverDup[1].delete()
-    }).not.toThrow()
-  })
-
-  it('List backups on servers', async () => {
-    for await (const backup of server[1].backups()) {
-      expect(backup[0]).toBeInstanceOf(Object)
-      expect(backup[1]).toBeInstanceOf(Backup)
-      expect(async () => {
-        await backup[1].restore()
-      }).not.toThrow()
-    }
-  })
-
-  it('List files on server', async () => {
-    for await (const file of server[1].files()) {
-      expect(file[0]).toBeInstanceOf(Object)
-      expect(file[1]).toBeInstanceOf(File)
-    }
-  })
-
-  it('Delete server', async () => {
-    expect(async () => {
-      await server[1].delete()
-    }).not.toThrow()
-  })
-
-  it('Create match', async () => {
-    const matchServer = await dathost.createServer(new ServerSettings({
-      name: 'TS CS:GO Match',
-      location: 'sydney'
-    }).csgo({
-      slots: 5,
-      gameToken: '',
-      tickrate: 128,
-      rconPassword: generatePassword()
-    }))
-
-    const match = await matchServer[1].createMatch(new MatchSettings({
-        connectionTime: 300,
-        knifeRound: false,
-        waitForSpectators: false,
-        warmupTime: 15
-    }).team_1(
-        [
-            "[U:1:116962485]",
-            76561198017567105,
-            "STEAM_0:1:186064092",
-            "76561198214871321"
-        ]
-    ).team_2(
-        [
-            "[U:1:320762620]",
-            "STEAM_1:1:83437164",
-            76561198214871324,
-            "76561198214871323"
-        ]
-    ))
-
-    expect(match[0]).toBeInstanceOf(Object)
-    expect(match[1]).toBeInstanceOf(Match)
-
-    expect(await match[1].get()).toBeInstanceOf(Object)
-  })
+      expect(await match[1].get()).toBeInstanceOf(Object)
+    })
   })
 
   describe('TF2 Server', () => {
     let server: [IServer, Server]
 
-    it('Create server', async () => {
+    beforeEach(async () => {
       server = await dathost.createServer(new ServerSettings({
           name: 'TS TF2 Server',
           location: 'sydney'
@@ -205,6 +214,13 @@ describe('Dathost Tests', () => {
           slots: 5,
           rconPassword: generatePassword()
       }))
+    })
+
+    afterEach(async () => {
+      try {
+        await server[1].delete()
+      // eslint-disable-next-line no-empty
+      } catch {  }
     })
 
     it('Get server details', async () => {
@@ -283,20 +299,24 @@ describe('Dathost Tests', () => {
   describe('Valheim server', () => {
     let server: [IServer, Server]
 
-    it('Create server', async () => {
-      expect(async () => {
-        server = await dathost.createServer(new ServerSettings({
-          name: 'TS Valheim server',
-          location: 'sydney'
-        }).valheim({
-          password: generatePassword(),
-          worldName: 'dathost ts',
-          plus: false,
-          admins: ['[U:1:116962485]', 'STEAM_0:1:186064092',
-                    '76561198017567105', 76561198214871321]
-        }))
-      }
-      ).not.toThrow()
+    afterEach(async () => {
+      try {
+        await server[1].delete()
+      // eslint-disable-next-line no-empty
+      } catch {  }
+    })
+
+    beforeEach(async () => {
+      server = await dathost.createServer(new ServerSettings({
+        name: 'TS Valheim server',
+        location: 'sydney'
+      }).valheim({
+        password: generatePassword(),
+        worldName: 'dathost ts',
+        plus: false,
+        admins: ['[U:1:116962485]', 'STEAM_0:1:186064092',
+                  '76561198017567105', 76561198214871321]
+      }))
     })
 
     it('Get server details', async () => {
@@ -368,14 +388,18 @@ describe('Dathost Tests', () => {
   describe('Teamspeak server', () => {
     let server: [IServer, Server]
 
-    it('Create server', async () => {
-      expect(async () => {
-        server = await dathost.createServer(new ServerSettings({
-          name: 'TS Teamspeak server',
-          location: 'sydney'
-        }).teamspeak({slots: 5}))
-      }
-      ).not.toThrow()
+    beforeEach(async () => {
+      server = await dathost.createServer(new ServerSettings({
+        name: 'TS Teamspeak server',
+        location: 'sydney'
+      }).teamspeak({slots: 5}))
+    })
+
+    afterEach(async () => {
+      try {
+        await server[1].delete()
+      // eslint-disable-next-line no-empty
+      } catch {  }
     })
 
     it('Get server details', async () => {
