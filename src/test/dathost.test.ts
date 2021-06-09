@@ -46,23 +46,19 @@ describe('Dathost Tests', () => {
     let server: [IServer, Server]
 
     beforeAll(async () => {
-      expect(
-        server = await dathost.createServer(new ServerSettings({
-          name: 'TS CS: GO Server',
-          location: 'sydney'
-        }).csgo({
-          slots: 5,
-          gameToken: '',
-          tickrate: 128,
-          rconPassword: generatePassword()
-        }))
-      ).not.toThrow()
+      server = await dathost.createServer(new ServerSettings({
+        name: 'TS CS: GO Server',
+        location: 'sydney'
+      }).csgo({
+        slots: 5,
+        gameToken: '',
+        tickrate: 128,
+        rconPassword: generatePassword()
+      }))
     })
 
     afterAll(async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
+      await server[1].delete()
     })
 
     it('Server return', async () => {
@@ -203,21 +199,17 @@ describe('Dathost Tests', () => {
     let server: [IServer, Server]
 
     beforeAll(async () => {
-      expect(
-        server = await dathost.createServer(new ServerSettings({
-          name: 'TS TF2 Server',
-          location: 'sydney'
-        }).tf2({
-          slots: 5,
-          rconPassword: generatePassword()
-        }))
-      ).not.toThrow()
+      server = await dathost.createServer(new ServerSettings({
+        name: 'TS TF2 Server',
+        location: 'sydney'
+      }).tf2({
+        slots: 5,
+        rconPassword: generatePassword()
+      }))
     })
 
     afterAll(async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
+      await server[1].delete()
     })
 
     it('Get server details', async () => {
@@ -291,24 +283,20 @@ describe('Dathost Tests', () => {
     let server: [IServer, Server]
 
     afterAll(async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
+      await server[1].delete()
     })
 
     beforeAll(async () => {
-      expect(
-        server = await dathost.createServer(new ServerSettings({
-          name: 'TS Valheim server',
-          location: 'sydney'
-        }).valheim({
-          password: generatePassword(),
-          worldName: 'dathost ts',
-          plus: false,
-          admins: ['[U:1:116962485]', 'STEAM_0:1:186064092',
-                    '76561198017567105', 76561198214871321]
-        }))
-      ).not.toThrow()
+      server = await dathost.createServer(new ServerSettings({
+        name: 'TS Valheim server',
+        location: 'sydney'
+      }).valheim({
+        password: generatePassword(),
+        worldName: 'dathost ts',
+        plus: false,
+        admins: ['[U:1:116962485]', 'STEAM_0:1:186064092',
+                  '76561198017567105', 76561198214871321]
+      }))
     })
 
     it('Get server details', async () => {
@@ -378,18 +366,14 @@ describe('Dathost Tests', () => {
     let server: [IServer, Server]
 
     beforeAll(async () => {
-      expect(
-        server = await dathost.createServer(new ServerSettings({
-          name: 'TS Teamspeak server',
-          location: 'sydney'
-        }).teamspeak({slots: 5}))
-      ).not.toThrow()
+      server = await dathost.createServer(new ServerSettings({
+        name: 'TS Teamspeak server',
+        location: 'sydney'
+      }).teamspeak({slots: 5}))
     })
 
     afterAll(async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
+      await server[1].delete()
     })
 
     it('Get server details', async () => {
