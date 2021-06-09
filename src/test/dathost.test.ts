@@ -55,6 +55,7 @@ describe('Dathost Tests', () => {
         tickrate: 128,
         rconPassword: generatePassword()
       }))
+      await server[1].start()
     })
 
     afterAll(async () => {
@@ -206,6 +207,7 @@ describe('Dathost Tests', () => {
         slots: 5,
         rconPassword: generatePassword()
       }))
+      await server[1].start()
     })
 
     afterAll(async () => {
@@ -297,6 +299,7 @@ describe('Dathost Tests', () => {
         admins: ['[U:1:116962485]', 'STEAM_0:1:186064092',
                   '76561198017567105', 76561198214871321]
       }))
+      await server[1].start()
     })
 
     it('Get server details', async () => {
@@ -369,7 +372,8 @@ describe('Dathost Tests', () => {
       server = await dathost.createServer(new ServerSettings({
         name: 'TS Teamspeak server',
         location: 'sydney'
-      }).teamspeak({slots: 5}))
+      }).teamspeak({ slots: 5 }))
+      await server[1].start()
     })
 
     afterAll(async () => {
