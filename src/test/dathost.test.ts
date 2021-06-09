@@ -1,4 +1,4 @@
-import { describe, expect, beforeAll, afterAll, it } from '@jest/globals'
+import { describe, expect, beforeAll, afterAll, test } from '@jest/globals'
 
 import Dathost from '../index'
 import Server from '../server'
@@ -14,7 +14,6 @@ const generatePassword = (): string => {
   return Math.random().toString(24).substr(2, 16)
 }
 
-
 describe('Dathost Tests', () => {
   let dathost: Dathost
 
@@ -25,17 +24,17 @@ describe('Dathost Tests', () => {
     )
   })
 
-  it('Get account info', async () => {
+  test('Get account info', async () => {
     expect(await dathost.account()).toBeInstanceOf(Object)
   })
 
-  it('Get domains', async () => {
+  test('Get domains', async () => {
     for await (const domain of dathost.domains()) {
       expect(typeof domain).toBe('string')
     }
   })
 
-  it('Get servers', async () => {
+  test('Get servers', async () => {
     for await (const server of dathost.servers()) {
       expect(server[0]).toBeInstanceOf(Object)
       expect(server[1]).toBeInstanceOf(Server)
@@ -62,24 +61,24 @@ describe('Dathost Tests', () => {
       await server[1].delete()
     })
 
-    it('Server return', async () => {
+    test('Server return', async () => {
       expect(server[0]).toBeInstanceOf(Object)
       expect(server[1]).toBeInstanceOf(Server)
     })
 
-    it('Get console auth', async () => {
+    test('Get console auth', async () => {
       expect(await server[1].consoleAuth()).toBeInstanceOf(Object)
     })
 
-    it('Get server details', async () => {
+    test('Get server details', async () => {
       expect(await server[1].get()).toBeInstanceOf(Object)
     })
 
-    it('Get server metrics', async () => {
+    test('Get server metrics', async () => {
       expect(await server[1].metrics()).toBeInstanceOf(Object)
     })
 
-    it('Update server', async () => {
+    test('Update server', async () => {
       expect(async () => {
         await server[1].update(new ServerSettings({
           name: 'TS CS: GO Server update'
@@ -88,49 +87,49 @@ describe('Dathost Tests', () => {
       ).not.toThrow()
     })
 
-    it('Start server', async () => {
+    test('Start server', async () => {
       expect(async () => {
         await server[1].start()
       }).not.toThrow()
     })
 
-    it('Stop server', async () => {
+    test('Stop server', async () => {
       expect(async () => {
         await server[1].stop()
       }).not.toThrow()
     })
 
-    it('Reset server', async () => {
+    test('Reset server', async () => {
       expect(async () => {
         await server[1].reset()
       }).not.toThrow()
     })
 
-    it('Regenerate ftp password', async () => {
+    test('Regenerate ftp password', async () => {
       expect(async () => {
         await server[1].regenerateFtpPassword()
       }).not.toThrow()
     })
 
-    it('Sync files', async () => {
+    test('Sync files', async () => {
       expect(async () => {
         await server[1].syncFiles()
       }).not.toThrow()
     })
 
-    it('Console retrieve', async () => {
+    test('Console retrieve', async () => {
       expect(async () => {
         await server[1].consoleRetrieve()
       }).not.toThrow()
     })
 
-    it('Console send', async () => {
+    test('Console send', async () => {
       expect(async () => {
         await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
       }).not.toThrow()
     })
 
-    it('Duplicate server', async () => {
+    test('Duplicate server', async () => {
       const serverDup: [IServer, Server] = await server[1].duplicate()
       expect(serverDup[0]).toBeInstanceOf(Object)
       expect(serverDup[1]).toBeInstanceOf(Server)
@@ -139,14 +138,25 @@ describe('Dathost Tests', () => {
       }).not.toThrow()
     })
 
-    it('List files on server', async () => {
+    test('List backups on servers', async () => {
+      for await (const backup of server[1].backups()) {
+        
+        expect(backup[0]).toBeInstanceOf(Object)
+        expect(backup[1]).toBeInstanceOf(Backup)
+        expect(async () => {
+          await backup[1].restore()
+        }).not.toThrow()
+      }
+    })
+
+    test('List files on server', async () => {
       for await (const file of server[1].files()) {
         expect(file[0]).toBeInstanceOf(Object)
         expect(file[1]).toBeInstanceOf(File)
       }
     })
 
-    it('Create match', async () => {
+    test('Create match', async () => {
       const matchServer = await dathost.createServer(new ServerSettings({
         name: 'TS CS:GO Match',
         location: 'sydney'
@@ -202,21 +212,21 @@ describe('Dathost Tests', () => {
       await server[1].delete()
     })
 
-    it('Get server details', async () => {
+    test('Get server details', async () => {
       expect(await server[1].get()).toBeInstanceOf(Object)
     })
 
-    it('Get server metrics', async () => {
+    test('Get server metrics', async () => {
       expect(await server[1].metrics()).toBeInstanceOf(Object)
     })
 
-    it('Start server', async () => {
+    test('Start server', async () => {
       expect(async () => {
         await server[1].start(true)
       }).not.toThrow()
     })
 
-    it('Update server', async () => {
+    test('Update server', async () => {
       expect(async () => {
         await server[1].update(new ServerSettings({
           name: 'TS TF2 Server update'
@@ -225,43 +235,43 @@ describe('Dathost Tests', () => {
       ).not.toThrow()
     })
 
-    it('Stop server', async () => {
+    test('Stop server', async () => {
       expect(async () => {
         await server[1].stop()
       }).not.toThrow()
     })
 
-    it('Reset server', async () => {
+    test('Reset server', async () => {
       expect(async () => {
         await server[1].reset()
       }).not.toThrow()
     })
 
-    it('Regenerate ftp password', async () => {
+    test('Regenerate ftp password', async () => {
       expect(async () => {
         await server[1].regenerateFtpPassword()
       }).not.toThrow()
     })
 
-    it('Sync files', async () => {
+    test('Sync files', async () => {
       expect(async () => {
         await server[1].syncFiles()
       }).not.toThrow()
     })
 
-    it('Console retrieve', async () => {
+    test('Console retrieve', async () => {
       expect(async () => {
         await server[1].consoleRetrieve(300)
       }).not.toThrow()
     })
 
-    it('Console send', async () => {
+    test('Console send', async () => {
       expect(async () => {
         await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
       }).not.toThrow()
     })
 
-    it('List files on server', async () => {
+    test('List files on server', async () => {
       for await (const file of server[1].files({ hideDefaultFiles: true, deletedFiles: true, fileSizes: true })) {
         expect(file[0]).toBeInstanceOf(Object)
         expect(file[1]).toBeInstanceOf(File)
@@ -290,15 +300,15 @@ describe('Dathost Tests', () => {
       await server[1].start()
     })
 
-    it('Get server details', async () => {
+    test('Get server details', async () => {
       expect(await server[1].get()).toBeInstanceOf(Object)
     })
 
-    it('Get server metrics', async () => {
+    test('Get server metrics', async () => {
       expect(await server[1].metrics()).toBeInstanceOf(Object)
     })
 
-    it('Update server', async () => {
+    test('Update server', async () => {
       expect(async () => {
         await server[1].update(new ServerSettings({
           name: 'TS Valheim Server update'
@@ -307,45 +317,45 @@ describe('Dathost Tests', () => {
       ).not.toThrow()
     })
 
-    it('Start server', async () => {
+    test('Start server', async () => {
       expect(async () => {
         await server[1].start(false)
       }).not.toThrow()
     })
 
-    it('Stop server', async () => {
+    test('Stop server', async () => {
       expect(async () => {
         await server[1].stop()
       }).not.toThrow()
     })
 
-    it('Reset server', async () => {
+    test('Reset server', async () => {
 
       expect(async () => {
         await server[1].reset()
       }).not.toThrow()
     })
 
-    it('Regenerate ftp password', async () => {
+    test('Regenerate ftp password', async () => {
       expect(async () => {
         await server[1].regenerateFtpPassword()
       }).not.toThrow()
     })
 
-    it('Sync files', async () => {
+    test('Sync files', async () => {
       
       expect(async () => {
         await server[1].syncFiles()
       }).not.toThrow()
     })
 
-    it('Console retrieve', async () => {
+    test('Console retrieve', async () => {
       expect(async () => {
         await server[1].consoleRetrieve()
       }).not.toThrow()
     })
 
-    it('Console send', async () => {
+    test('Console send', async () => {
       
       expect(async () => {
         await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
@@ -368,15 +378,15 @@ describe('Dathost Tests', () => {
       await server[1].delete()
     })
 
-    it('Get server details', async () => {
+    test('Get server details', async () => {
       expect(await server[1].get()).toBeInstanceOf(Object)
     })
 
-    it('Get server metrics', async () => {
+    test('Get server metrics', async () => {
       expect(await server[1].metrics()).toBeInstanceOf(Object)
     })
 
-    it('Update server', async () => {
+    test('Update server', async () => {
       expect(async () => {
         await server[1].update(new ServerSettings({
           name: 'TS Teamspeak Server update'
@@ -385,31 +395,31 @@ describe('Dathost Tests', () => {
       ).not.toThrow()
     })
 
-    it('Start server', async () => {
+    test('Start server', async () => {
       expect(async () => {
         await server[1].start()
       }).not.toThrow()
     })
 
-    it('Stop server', async () => {
+    test('Stop server', async () => {
       expect(async () => {
         await server[1].stop()
       }).not.toThrow()
     })
 
-    it('Reset server', async () => {
+    test('Reset server', async () => {
       expect(async () => {
         await server[1].reset()
       }).not.toThrow()
     })
 
-    it('Regenerate ftp password', async () => {
+    test('Regenerate ftp password', async () => {
       expect(async () => {
         await server[1].regenerateFtpPassword()
       }).not.toThrow()
     })
 
-    it('Sync files', async () => {
+    test('Sync files', async () => {
       expect(async () => {
         await server[1].syncFiles()
       }).not.toThrow()
