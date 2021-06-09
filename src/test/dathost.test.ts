@@ -68,15 +68,15 @@ describe('Dathost Tests', () => {
     })
 
     it('Get console auth', async () => {
-      expect(await server[1].consoleAuth()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].consoleAuth()).toBeInstanceOf(Object)
     })
 
     it('Get server details', async () => {
-      expect(await server[1].get()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].get()).toBeInstanceOf(Object)
     })
 
     it('Get server metrics', async () => {
-      expect(await server[1].metrics()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].metrics()).toBeInstanceOf(Object)
     })
 
     it('Update server', async () => {
@@ -192,7 +192,7 @@ describe('Dathost Tests', () => {
       expect(match[0]).toBeInstanceOf(Object)
       expect(match[1]).toBeInstanceOf(Match)
 
-      expect(await match[1].get()).resolves.toBeInstanceOf(Object)
+      expect(await match[1].get()).toBeInstanceOf(Object)
     })
   })
 
@@ -207,7 +207,6 @@ describe('Dathost Tests', () => {
         slots: 5,
         rconPassword: generatePassword()
       }))
-      await server[1].start()
     })
 
     afterAll(async () => {
@@ -215,11 +214,11 @@ describe('Dathost Tests', () => {
     })
 
     it('Get server details', async () => {
-      expect(await server[1].get()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].get()).toBeInstanceOf(Object)
     })
 
     it('Get server metrics', async () => {
-      expect(await server[1].metrics()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].metrics()).toBeInstanceOf(Object)
     })
 
     it('Start server', async () => {
@@ -303,11 +302,11 @@ describe('Dathost Tests', () => {
     })
 
     it('Get server details', async () => {
-      expect(await server[1].get()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].get()).toBeInstanceOf(Object)
     })
 
     it('Get server metrics', async () => {
-      expect(await server[1].metrics()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].metrics()).toBeInstanceOf(Object)
     })
 
     it('Update server', async () => {
@@ -381,11 +380,11 @@ describe('Dathost Tests', () => {
     })
 
     it('Get server details', async () => {
-      expect(await server[1].get()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].get()).toBeInstanceOf(Object)
     })
 
     it('Get server metrics', async () => {
-      expect(await server[1].metrics()).resolves.toBeInstanceOf(Object)
+      expect(await server[1].metrics()).toBeInstanceOf(Object)
     })
 
     it('Update server', async () => {
