@@ -1,11 +1,13 @@
 {
   "name": "dathost",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "TypeScript wrapper for Dathost's API",
   "main": "src/index.ts",
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "scripts": {
-    "test": "mocha src/test/*.test.ts --watch-extensions ts --require ts-node/register --timeout 300000",
+    "test": "jest",
     "lint": "eslint src/** --ext .js,.jsx,.ts,.tsx",
     "build": "esbuild ./src/ --bundle --outfile=dist/dathost.js --minify --sourcemap",
     "docs": "npx typedoc --out docs src --theme node_modules/eledoc/bin/default/ --exclude src/test/*.test.ts --readme DOCSINTRO.md"
@@ -39,17 +41,19 @@
     "@types/cuint": "^0.2.1",
     "axios": "^0.21.1",
     "cuint": "^0.2.2",
-    "form-data": "^4.0.0"
+    "form-data": "^4.0.0",
+    "jest": "^27.0.4"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "@types/node": "^15.6.0",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
-    "chai": "^4.3.4",
     "eledoc": "^0.2.1",
     "esbuild": "^0.11.20",
     "eslint": "^7.25.0",
-    "mocha": "^8.4.0",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.0.0",
     "ts-node-register": "^1.0.0",
     "typedoc": "^0.20.36",
     "typescript": "^4.2.4"
