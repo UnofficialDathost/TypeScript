@@ -1,4 +1,4 @@
-import { describe, expect, beforeEach, afterEach, it } from '@jest/globals'
+import { describe, expect, beforeAll, afterAll, it } from '@jest/globals'
 
 import Dathost from '../index'
 import Server from '../server'
@@ -18,7 +18,7 @@ const generatePassword = (): string => {
 describe('Dathost Tests', () => {
   let dathost: Dathost
 
-  beforeEach(() => {
+  beforeAll(() => {
     dathost = new Dathost(
       process.env.npm_package_config_datHostEmail || '',
       process.env.npm_package_config_datHostPass || ''
@@ -45,7 +45,7 @@ describe('Dathost Tests', () => {
   describe('CS: GO server', () => {
     let server: [IServer, Server]
 
-    beforeEach(async () => {
+    beforeAll(async () => {
       server = await dathost.createServer(new ServerSettings({
           name: 'TS CS: GO Server',
           location: 'sydney'
@@ -57,7 +57,7 @@ describe('Dathost Tests', () => {
       }))
     })
 
-    afterEach(async () => {
+    afterAll(async () => {
       expect(async () => {
         await server[1].delete()
       }).not.toThrow()
@@ -199,7 +199,7 @@ describe('Dathost Tests', () => {
   describe('TF2 Server', () => {
     let server: [IServer, Server]
 
-    beforeEach(async () => {
+    beforeAll(async () => {
       server = await dathost.createServer(new ServerSettings({
           name: 'TS TF2 Server',
           location: 'sydney'
@@ -209,7 +209,7 @@ describe('Dathost Tests', () => {
       }))
     })
 
-    afterEach(async () => {
+    afterAll(async () => {
       expect(async () => {
         await server[1].delete()
       }).not.toThrow()
@@ -285,13 +285,13 @@ describe('Dathost Tests', () => {
   describe('Valheim server', () => {
     let server: [IServer, Server]
 
-    afterEach(async () => {
+    afterAll(async () => {
       expect(async () => {
         await server[1].delete()
       }).not.toThrow()
     })
 
-    beforeEach(async () => {
+    beforeAll(async () => {
       server = await dathost.createServer(new ServerSettings({
         name: 'TS Valheim server',
         location: 'sydney'
@@ -367,14 +367,14 @@ describe('Dathost Tests', () => {
   describe('Teamspeak server', () => {
     let server: [IServer, Server]
 
-    beforeEach(async () => {
+    beforeAll(async () => {
       server = await dathost.createServer(new ServerSettings({
         name: 'TS Teamspeak server',
         location: 'sydney'
       }).teamspeak({slots: 5}))
     })
 
-    afterEach(async () => {
+    afterAll(async () => {
       expect(async () => {
         await server[1].delete()
       }).not.toThrow()
