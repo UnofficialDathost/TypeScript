@@ -77,49 +77,49 @@ describe('Dathost Tests', () => {
       await server[1].update(new ServerSettings({
         name: 'TS CS: GO Server update'
       }))
-    ).toHaveReturned()
+    ).not.toThrow()
   })
 
   it('Start server', async () => {
-    expect(await server[1].start()).toHaveReturned()
+    expect(await server[1].start()).not.toThrow()
   })
 
   it('Stop server', async () => {
-    expect(await server[1].stop()).toHaveReturned()
+    expect(await server[1].stop()).not.toThrow()
   })
 
   it('Reset server', async () => {
-    expect(await server[1].reset()).toHaveReturned()
+    expect(await server[1].reset()).not.toThrow()
   })
 
   it('Regenerate ftp password', async () => {
-    expect(await server[1].regenerateFtpPassword()).toHaveReturned()
+    expect(await server[1].regenerateFtpPassword()).not.toThrow()
   })
 
   it('Sync files', async () => {
-    expect(await server[1].syncFiles()).toHaveReturned()
+    expect(await server[1].syncFiles()).not.toThrow()
   })
 
   it('Console retrieve', async () => {
-    expect(await server[1].consoleRetrieve()).toHaveReturned()
+    expect(await server[1].consoleRetrieve()).not.toThrow()
   })
 
   it('Console send', async () => {
-    expect(await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')).toHaveReturned()
+    expect(await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')).not.toThrow()
   })
 
   it('Duplicate server', async () => {
     const serverDup: [IServer, Server] = await server[1].duplicate()
     expect(serverDup[0]).toBeInstanceOf(Object)
     expect(serverDup[1]).toBeInstanceOf(Server)
-    expect(await serverDup[1].delete()).toHaveReturned()
+    expect(await serverDup[1].delete()).not.toThrow()
   })
 
   it('List backups on servers', async () => {
     for await (const backup of server[1].backups()) {
       expect(backup[0]).toBeInstanceOf(Object)
       expect(backup[1]).toBeInstanceOf(Backup)
-      expect(await backup[1].restore()).toHaveReturned()
+      expect(await backup[1].restore()).not.toThrow()
     }
   })
 
@@ -131,7 +131,7 @@ describe('Dathost Tests', () => {
   })
 
   it('Delete server', async () => {
-    expect(await server[1].delete()).toHaveReturned()
+    expect(await server[1].delete()).not.toThrow()
   })
 
   it('Create match', async () => {
@@ -195,7 +195,7 @@ describe('Dathost Tests', () => {
     })
 
     it('Start server', async () => {
-      expect(await server[1].start(true)).toHaveReturned()
+      expect(await server[1].start(true)).not.toThrow()
     })
 
     it('Update server', async () => {
@@ -203,31 +203,31 @@ describe('Dathost Tests', () => {
         await server[1].update(new ServerSettings({
           name: 'TS TF2 Server update'
         }))
-      ).toHaveReturned()
+      ).not.toThrow()
     })
 
     it('Stop server', async () => {
-      expect(await server[1].stop()).toHaveReturned()
+      expect(await server[1].stop()).not.toThrow()
     })
 
     it('Reset server', async () => {
-      expect(await server[1].reset()).toHaveReturned()
+      expect(await server[1].reset()).not.toThrow()
     })
 
     it('Regenerate ftp password', async () => {
-      expect(await server[1].regenerateFtpPassword()).toHaveReturned()
+      expect(await server[1].regenerateFtpPassword()).not.toThrow()
     })
 
     it('Sync files', async () => {
-      expect(await server[1].syncFiles()).toHaveReturned()
+      expect(await server[1].syncFiles()).not.toThrow()
     })
 
     it('Console retrieve', async () => {
-      expect(await server[1].consoleRetrieve(300)).toHaveReturned()
+      expect(await server[1].consoleRetrieve(300)).not.toThrow()
     })
 
     it('Console send', async () => {
-      expect(await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')).toHaveReturned()
+      expect(await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')).not.toThrow()
     })
 
     it('List files on server', async () => {
@@ -238,7 +238,7 @@ describe('Dathost Tests', () => {
     })
 
     it('Delete server', async () => {
-      expect(await server[1].delete()).toHaveReturned()
+      expect(await server[1].delete()).not.toThrow()
     })
   })
 
@@ -257,7 +257,7 @@ describe('Dathost Tests', () => {
             admins: ['[U:1:116962485]', 'STEAM_0:1:186064092',
                       '76561198017567105', 76561198214871321]
         }))
-      ).toHaveReturned()
+      ).not.toThrow()
     })
 
     it('Get server details', async () => {
@@ -273,39 +273,39 @@ describe('Dathost Tests', () => {
         await server[1].update(new ServerSettings({
           name: 'TS Valheim Server update'
         }))
-      ).toHaveReturned()
+      ).not.toThrow()
     })
 
     it('Start server', async () => {
-      expect(await server[1].start(false)).toHaveReturned()
+      expect(await server[1].start(false)).not.toThrow()
     })
 
     it('Stop server', async () => {
-      expect(await server[1].stop()).toHaveReturned()
+      expect(await server[1].stop()).not.toThrow()
     })
 
     it('Reset server', async () => {
-      expect(await server[1].reset()).toHaveReturned()
+      expect(await server[1].reset()).not.toThrow()
     })
 
     it('Regenerate ftp password', async () => {
-      expect(await server[1].regenerateFtpPassword()).toHaveReturned()
+      expect(await server[1].regenerateFtpPassword()).not.toThrow()
     })
 
     it('Sync files', async () => {
-      expect(await server[1].syncFiles()).toHaveReturned()
+      expect(await server[1].syncFiles()).not.toThrow()
     })
 
     it('Console retrieve', async () => {
-      expect(await server[1].consoleRetrieve()).toHaveReturned()
+      expect(await server[1].consoleRetrieve()).not.toThrow()
     })
 
     it('Console send', async () => {
-      expect(await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')).toHaveReturned()
+      expect(await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')).not.toThrow()
     })
 
     it('Delete server', async () => {
-      expect(await server[1].delete()).toHaveReturned()
+      expect(await server[1].delete()).not.toThrow()
     })
   })
 
@@ -318,7 +318,7 @@ describe('Dathost Tests', () => {
           name: 'TS Teamspeak server',
           location: 'sydney'
         }).teamspeak({slots: 5}))
-      ).toHaveReturned()
+      ).not.toThrow()
     })
 
     it('Get server details', async () => {
@@ -334,31 +334,31 @@ describe('Dathost Tests', () => {
         await server[1].update(new ServerSettings({
           name: 'TS Teamspeak Server update'
         }))
-      ).toHaveReturned()
+      ).not.toThrow()
     })
 
     it('Start server', async () => {
-      expect(await server[1].start()).toHaveReturned()
+      expect(await server[1].start()).not.toThrow()
     })
 
     it('Stop server', async () => {
-      expect(await server[1].stop()).toHaveReturned()
+      expect(await server[1].stop()).not.toThrow()
     })
 
     it('Reset server', async () => {
-      expect(await server[1].reset()).toHaveReturned()
+      expect(await server[1].reset()).not.toThrow()
     })
 
     it('Regenerate ftp password', async () => {
-      expect(await server[1].regenerateFtpPassword()).toHaveReturned()
+      expect(await server[1].regenerateFtpPassword()).not.toThrow()
     })
 
     it('Sync files', async () => {
-      expect(await server[1].syncFiles()).toHaveReturned()
+      expect(await server[1].syncFiles()).not.toThrow()
     })
 
     it('Delete server', async () => {
-      expect(await server[1].delete()).toHaveReturned()
+      expect(await server[1].delete()).not.toThrow()
     })
   })
 })
