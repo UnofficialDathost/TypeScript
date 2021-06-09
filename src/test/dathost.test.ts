@@ -1,4 +1,4 @@
-import { describe, expect, beforeAll, afterAll, test } from '@jest/globals'
+import { describe, expect, beforeEach, afterEach, test } from '@jest/globals'
 
 import Dathost from '../index'
 import Server from '../server'
@@ -17,34 +17,37 @@ const generatePassword = (): string => {
 describe('Dathost Tests', () => {
   let dathost: Dathost
 
-  beforeAll(() => {
+  beforeEach(() => {
     dathost = new Dathost(
-      process.env.npm_package_config_datHostEmail || '',
-      process.env.npm_package_config_datHostPass || ''
+      process.env.npm_package_config_datHostEmail || 'wpearce6@gmail.com',
+      process.env.npm_package_config_datHostPass || 'v@SQWGJ@z=7Bfh=BQM!qStuPv5H@3_c&@MnpS*ykQbY!kXaL7K2LWZ4mmC@g'
     )
   })
 
   test('Get account info', async () => {
-    expect(await dathost.account()).toBeInstanceOf(Object)
+    const account = await dathost.account()
+    expect(account).toBeInstanceOf(Object)
   })
 
   test('Get domains', async () => {
-    for await (const domain of dathost.domains()) {
-      expect(typeof domain).toBe('string')
-    }
+    dathost.domains().next().then(domain => {
+      if (typeof domain.value !== 'undefined') { expect(typeof domain.value).toBe('string') }
+    })
   })
 
   test('Get servers', async () => {
-    for await (const server of dathost.servers()) {
-      expect(server[0]).toBeInstanceOf(Object)
-      expect(server[1]).toBeInstanceOf(Server)
-    }
+    dathost.servers().next().then(servers => {
+      if (typeof servers.value !== 'undefined') {
+        expect(servers.value[0]).toBeInstanceOf(Object)
+        expect(servers.value[1]).toBeInstanceOf(Server)
+      }
+    })
   })
 
   describe('CS: GO server', () => {
     let server: [IServer, Server]
 
-    beforeAll(async () => {
+    beforeEach(async () => {
       server = await dathost.createServer(new ServerSettings({
         name: 'TS CS: GO Server',
         location: 'sydney'
@@ -57,7 +60,7 @@ describe('Dathost Tests', () => {
       await server[1].start()
     })
 
-    afterAll(async () => {
+    afterEach(async () => {
       await server[1].delete()
     })
 
@@ -67,15 +70,18 @@ describe('Dathost Tests', () => {
     })
 
     test('Get console auth', async () => {
-      expect(await server[1].consoleAuth()).toBeInstanceOf(Object)
+      const authConsol = await server[1].consoleAuth()
+      expect(authConsol).toBeInstanceOf(Object)
     })
 
     test('Get server details', async () => {
-      expect(await server[1].get()).toBeInstanceOf(Object)
+      const serverDetails = await server[1].get()
+      expect(serverDetails).toBeInstanceOf(Object)
     })
 
     test('Get server metrics', async () => {
-      expect(await server[1].metrics()).toBeInstanceOf(Object)
+      const metrics = await server[1].metrics()
+      expect(metrics).toBeInstanceOf(Object)
     })
 
     test('Update server', async () => {
@@ -139,35 +145,28 @@ describe('Dathost Tests', () => {
     })
 
     test('List backups on servers', async () => {
-      for await (const backup of server[1].backups()) {
-        
-        expect(backup[0]).toBeInstanceOf(Object)
-        expect(backup[1]).toBeInstanceOf(Backup)
-        expect(async () => {
-          await backup[1].restore()
-        }).not.toThrow()
-      }
+      server[1].backups().next().then(backup => {
+        if (typeof backup.value !== 'undefined') {
+          expect(backup.value[0]).toBeInstanceOf(Object)
+          expect(backup.value[1]).toBeInstanceOf(Backup)
+          expect(async () => {
+            await backup.value[1].restore()
+          }).not.toThrow()
+        }
+      })
     })
 
     test('List files on server', async () => {
-      for await (const file of server[1].files()) {
-        expect(file[0]).toBeInstanceOf(Object)
-        expect(file[1]).toBeInstanceOf(File)
-      }
+      server[1].files().next().then(file => {
+        if (typeof file.value !== 'undefined') {
+          expect(file.value[0]).toBeInstanceOf(Object)
+          expect(file.value[1]).toBeInstanceOf(File)
+        }
+      })
     })
 
     test('Create match', async () => {
-      const matchServer = await dathost.createServer(new ServerSettings({
-        name: 'TS CS:GO Match',
-        location: 'sydney'
-      }).csgo({
-        slots: 5,
-        gameToken: '',
-        tickrate: 128,
-        rconPassword: generatePassword()
-      }))
-
-      const match = await matchServer[1].createMatch(new MatchSettings({
+      const match = await server[1].createMatch(new MatchSettings({
           connectionTime: 300,
           knifeRound: false,
           waitForSpectators: false,
@@ -191,14 +190,16 @@ describe('Dathost Tests', () => {
       expect(match[0]).toBeInstanceOf(Object)
       expect(match[1]).toBeInstanceOf(Match)
 
-      expect(await match[1].get()).toBeInstanceOf(Object)
+      const matchDetails = await match[1].get()
+
+      expect(matchDetails).toBeInstanceOf(Object)
     })
   })
 
   describe('TF2 Server', () => {
     let server: [IServer, Server]
 
-    beforeAll(async () => {
+    beforeEach(async () => {
       server = await dathost.createServer(new ServerSettings({
         name: 'TS TF2 Server',
         location: 'sydney'
@@ -208,16 +209,18 @@ describe('Dathost Tests', () => {
       }))
     })
 
-    afterAll(async () => {
+    afterEach(async () => {
       await server[1].delete()
     })
 
     test('Get server details', async () => {
-      expect(await server[1].get()).toBeInstanceOf(Object)
+      const serverDetails = await server[1].get()
+      expect(serverDetails).toBeInstanceOf(Object)
     })
 
     test('Get server metrics', async () => {
-      expect(await server[1].metrics()).toBeInstanceOf(Object)
+      const serverMetrics = await server[1].metrics()
+      expect(serverMetrics).toBeInstanceOf(Object)
     })
 
     test('Start server', async () => {
@@ -272,21 +275,23 @@ describe('Dathost Tests', () => {
     })
 
     test('List files on server', async () => {
-      for await (const file of server[1].files({ hideDefaultFiles: true, deletedFiles: true, fileSizes: true })) {
-        expect(file[0]).toBeInstanceOf(Object)
-        expect(file[1]).toBeInstanceOf(File)
-      }
+      server[1].files({ hideDefaultFiles: true, deletedFiles: true, fileSizes: true }).next().then(file => {
+        if (typeof file.value !== 'undefined') {
+          expect(file.value[0]).toBeInstanceOf(Object)
+          expect(file.value[1]).toBeInstanceOf(File)
+        }
+      })
     })
   })
 
   describe('Valheim server', () => {
     let server: [IServer, Server]
 
-    afterAll(async () => {
+    afterEach(async () => {
       await server[1].delete()
     })
 
-    beforeAll(async () => {
+    beforeEach(async () => {
       server = await dathost.createServer(new ServerSettings({
         name: 'TS Valheim server',
         location: 'sydney'
@@ -301,11 +306,13 @@ describe('Dathost Tests', () => {
     })
 
     test('Get server details', async () => {
-      expect(await server[1].get()).toBeInstanceOf(Object)
+      const serverDetails = await server[1].get()
+      expect(serverDetails).toBeInstanceOf(Object)
     })
 
     test('Get server metrics', async () => {
-      expect(await server[1].metrics()).toBeInstanceOf(Object)
+      const serverMetrics = await server[1].metrics()
+      expect(serverMetrics).toBeInstanceOf(Object)
     })
 
     test('Update server', async () => {
@@ -366,7 +373,7 @@ describe('Dathost Tests', () => {
   describe('Teamspeak server', () => {
     let server: [IServer, Server]
 
-    beforeAll(async () => {
+    beforeEach(async () => {
       server = await dathost.createServer(new ServerSettings({
         name: 'TS Teamspeak server',
         location: 'sydney'
@@ -374,16 +381,18 @@ describe('Dathost Tests', () => {
       await server[1].start()
     })
 
-    afterAll(async () => {
+    afterEach(async () => {
       await server[1].delete()
     })
 
     test('Get server details', async () => {
-      expect(await server[1].get()).toBeInstanceOf(Object)
+      const serverDetails = await server[1].get()
+      expect(serverDetails).toBeInstanceOf(Object)
     })
 
     test('Get server metrics', async () => {
-      expect(await server[1].metrics()).toBeInstanceOf(Object)
+      const serverMetrics = await server[1].metrics()
+      expect(serverMetrics).toBeInstanceOf(Object)
     })
 
     test('Update server', async () => {
