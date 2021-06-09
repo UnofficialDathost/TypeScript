@@ -139,17 +139,6 @@ describe('Dathost Tests', () => {
       }).not.toThrow()
     })
 
-    it('List backups on servers', async () => {
-      for await (const backup of server[1].backups()) {
-        
-        expect(backup[0]).toBeInstanceOf(Object)
-        expect(backup[1]).toBeInstanceOf(Backup)
-        expect(async () => {
-          await backup[1].restore()
-        }).not.toThrow()
-      }
-    })
-
     it('List files on server', async () => {
       for await (const file of server[1].files()) {
         expect(file[0]).toBeInstanceOf(Object)
