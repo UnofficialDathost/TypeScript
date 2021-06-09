@@ -7,7 +7,7 @@
     "src"
   ],
   "scripts": {
-    "test": "jest --forceExit",
+    "test": "jest",
     "lint": "eslint src/** --ext .js,.jsx,.ts,.tsx",
     "build": "esbuild ./src/ --bundle --outfile=dist/dathost.js --minify --sourcemap",
     "docs": "npx typedoc --out docs src --theme node_modules/eledoc/bin/default/ --exclude src/test/*.test.ts --readme DOCSINTRO.md"
