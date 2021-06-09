@@ -58,10 +58,9 @@ describe('Dathost Tests', () => {
     })
 
     afterEach(async () => {
-      try {
+      expect(async () => {
         await server[1].delete()
-      // eslint-disable-next-line no-empty
-      } catch {  }
+      }).not.toThrow()
     })
 
     it('Server return', async () => {
@@ -158,12 +157,6 @@ describe('Dathost Tests', () => {
       }
     })
 
-    it('Delete server', async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
-    })
-
     it('Create match', async () => {
       const matchServer = await dathost.createServer(new ServerSettings({
         name: 'TS CS:GO Match',
@@ -217,10 +210,9 @@ describe('Dathost Tests', () => {
     })
 
     afterEach(async () => {
-      try {
+      expect(async () => {
         await server[1].delete()
-      // eslint-disable-next-line no-empty
-      } catch {  }
+      }).not.toThrow()
     })
 
     it('Get server details', async () => {
@@ -288,22 +280,15 @@ describe('Dathost Tests', () => {
         expect(file[1]).toBeInstanceOf(File)
       }
     })
-
-    it('Delete server', async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
-    })
   })
 
   describe('Valheim server', () => {
     let server: [IServer, Server]
 
     afterEach(async () => {
-      try {
+      expect(async () => {
         await server[1].delete()
-      // eslint-disable-next-line no-empty
-      } catch {  }
+      }).not.toThrow()
     })
 
     beforeEach(async () => {
@@ -377,12 +362,6 @@ describe('Dathost Tests', () => {
         await server[1].consoleSend('say https://github.com/UnofficialDathost/TypeScript')
       }).not.toThrow()
     })
-
-    it('Delete server', async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
-    })
   })
 
   describe('Teamspeak server', () => {
@@ -396,10 +375,9 @@ describe('Dathost Tests', () => {
     })
 
     afterEach(async () => {
-      try {
+      expect(async () => {
         await server[1].delete()
-      // eslint-disable-next-line no-empty
-      } catch {  }
+      }).not.toThrow()
     })
 
     it('Get server details', async () => {
@@ -446,12 +424,6 @@ describe('Dathost Tests', () => {
     it('Sync files', async () => {
       expect(async () => {
         await server[1].syncFiles()
-      }).not.toThrow()
-    })
-
-    it('Delete server', async () => {
-      expect(async () => {
-        await server[1].delete()
       }).not.toThrow()
     })
   })
