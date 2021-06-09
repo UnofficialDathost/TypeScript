@@ -58,9 +58,7 @@ describe('Dathost Tests', () => {
     })
 
     afterAll(async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
+      await server[1].delete()
     })
 
     it('Server return', async () => {
@@ -210,9 +208,7 @@ describe('Dathost Tests', () => {
     })
 
     afterAll(async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
+      await server[1].delete()
     })
 
     it('Get server details', async () => {
@@ -286,9 +282,7 @@ describe('Dathost Tests', () => {
     let server: [IServer, Server]
 
     afterAll(async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
+      await server[1].delete()
     })
 
     beforeAll(async () => {
@@ -375,9 +369,7 @@ describe('Dathost Tests', () => {
     })
 
     afterAll(async () => {
-      expect(async () => {
-        await server[1].delete()
-      }).not.toThrow()
+      await server[1].delete()
     })
 
     it('Get server details', async () => {
