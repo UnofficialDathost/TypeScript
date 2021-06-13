@@ -36,7 +36,7 @@ export default class File {
     await this.http.put(this.url, payload)
   }
 
-  public async download(asText = false): Promise<ArrayBuffer> {
+  public async download(asText = false): Promise<ArrayBuffer | string> {
     return await this.http.get(`${this.url}?as_text=${asText.toString()}`)
   }
 
