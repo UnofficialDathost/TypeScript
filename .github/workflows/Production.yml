@@ -33,10 +33,12 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - name: Get release version
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-        run: echo ::set-env name=DATHOST_VERSION::$(npm info dathost version)
+      - name: Get Version
+          id: version
+          uses: notiz-dev/github-action-json-property@release
+          with: 
+              path: 'package.json'
+              prop_path: 'version'
       - name: Delete npmrc
         run: rm -f ./.npmrc
       - name: Build with esbuild
@@ -45,9 +47,9 @@ jobs:
         uses: marvinpinto/action-automatic-releases@v1.2.0
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ env.DATHOST_VERSION }}"
+          automatic_release_tag: "${{steps.version.outputs.prop}}"
           prerelease: false
-          title: "${{ env.DATHOST_VERSION }}"
+          title: "${{steps.version.outputs.prop}}"
           files: dist/**
       - name: Build docs
         run: npm run docs
