@@ -28,24 +28,21 @@ export default class HTTP {
     )
   }
 
-  public async get(url: string, raw = false): Promise<any> {
-    if (raw) {
-      return await this.request.get(url, { responseType: 'blob' })
-    }
-    return await this.request.get(url)
+  public async get(url: string, config: AxiosRequestConfig = {}): Promise<any> {
+    return await this.request.get(url, config)
   }
 
-  public async delete(url: string): Promise<any> {
-    return await this.request.delete(url)
+  public async delete(url: string, config: AxiosRequestConfig = {}): Promise<any> {
+    return await this.request.delete(url, config)
   }
 
-  public async post(url: string, data?: URLSearchParams | FormData): Promise<any> {
+  public async post(url: string, data?: URLSearchParams | FormData, config: AxiosRequestConfig = {}): Promise<any> {
     if (data instanceof FormData)
-        return await this.request.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}})
-    return await this.request.post(url, data)
+        return await this.request.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}, ...config})
+    return await this.request.post(url, data, config)
   }
 
-  public async put(url: string, data: URLSearchParams): Promise<any> {
-    return await this.request.put(url, data)
+  public async put(url: string, data: URLSearchParams, config: AxiosRequestConfig = {}): Promise<any> {
+    return await this.request.put(url, data, config)
   }
 }
