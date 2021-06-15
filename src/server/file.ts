@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from 'axios'
+
 import HTTP from '../http'
 import FormData from '../helpers/formData'
 
@@ -36,13 +38,17 @@ export default class File {
     await this.http.put(this.url, payload)
   }
 
-  public async download(asText = false): Promise<Blob | string> {
-    return await this.http.get(`${this.url}?as_text=${asText.toString()}`, !asText)
+  public async download(asText = false, config: AxiosRequestConfig = {}): Promise<Blob | string> {
+    if (!asText) {
+      config.responseType = 'blob'
+    }
+
+    return await this.http.get(`${this.url}?as_text=${asText.toString()}`, config)
   }
 
-  public async upload(data: Blob): Promise<void> {
+  public async upload(data: Blob, config: AxiosRequestConfig = {}): Promise<void> {
     const payload = new FormData()
     payload.append('file', data)
-    await this.http.post(`https://upload.dathost.net/api/0.1/game-servers/${this.serverId}/files/${this.path}`, payload)
+    await this.http.post(`https://upload.dathost.net/api/0.1/game-servers/${this.serverId}/files/${this.path}`, payload, config)
   }
 }
