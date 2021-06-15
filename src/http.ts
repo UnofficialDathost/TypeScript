@@ -28,7 +28,10 @@ export default class HTTP {
     )
   }
 
-  public async get(url: string): Promise<any> {
+  public async get(url: string, raw = false): Promise<any> {
+    if (raw) {
+      return await this.request.get(url, { responseType: 'blob' })
+    }
     return await this.request.get(url)
   }
 
