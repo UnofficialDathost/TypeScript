@@ -14,8 +14,8 @@ import Match from './match'
 export default class Dathost {
   private http: HTTP
 
-  constructor (email: string, password: string, apiUrl = 'https://dathost.net/api/0.1/', axiosConfig: AxiosRequestConfig = {}) {
-    this.http = new HTTP(email, password, apiUrl, axiosConfig)
+  constructor (email: string, password: string, apiUrl = 'https://dathost.net/api/0.1/', uploadUrl = 'https://upload.dathost.net/api/0.1/', axiosConfig: AxiosRequestConfig = {}) {
+    this.http = new HTTP(email, password, apiUrl, uploadUrl, axiosConfig)
   }
 
   public async account(): Promise<IAccount> {

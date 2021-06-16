@@ -8,10 +8,10 @@ export default class File {
   path: string
   private http: HTTP
 
-  constructor(serverId: string, path: string, http: HTTP) {
-  this.serverId = serverId
-  this.path = path
-  this.http = http
+  constructor (serverId: string, path: string, http: HTTP) {
+    this.serverId = serverId
+    this.path = path
+    this.http = http
   }
 
   public get url(): string {
@@ -49,6 +49,6 @@ export default class File {
   public async upload(data: Blob, config: AxiosRequestConfig = {}): Promise<void> {
     const payload = new FormData()
     payload.append('file', data)
-    await this.http.post(`https://upload.dathost.net/api/0.1/game-servers/${this.serverId}/files/${this.path}`, payload, config)
+    await this.http.post(`/game-servers/${this.serverId}/files/${this.path}`, payload, config, true)
   }
 }

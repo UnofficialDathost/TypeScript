@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import path from 'path/posix'
 import FormData from './helpers/formData'
 
 export default class HTTP {
   private request: AxiosInstance
+  private uploadUrl: string
 
-  constructor (email: string, password: string, apiUrl: string, config: AxiosRequestConfig) {
+  constructor (email: string, password: string, apiUrl: string, uploadUrl: string, config: AxiosRequestConfig) {
     this.request = axios.create({
       baseURL: apiUrl,
       headers: {
@@ -26,6 +28,8 @@ export default class HTTP {
           return Promise.reject(error)
       }
     )
+
+    this.uploadUrl = uploadUrl
   }
 
   public async get(url: string, config: AxiosRequestConfig = {}): Promise<any> {
@@ -36,9 +40,9 @@ export default class HTTP {
     return await this.request.delete(url, config)
   }
 
-  public async post(url: string, data?: URLSearchParams | FormData, config: AxiosRequestConfig = {}): Promise<any> {
+  public async post(url: string, data?: URLSearchParams | FormData, config: AxiosRequestConfig = {}, useUploadUrl = false): Promise<any> {
     if (data instanceof FormData)
-        return await this.request.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}, ...config})
+        return await this.request.post(!useUploadUrl ? url : this.uploadUrl + path, data, {headers: {'Content-Type': 'multipart/form-data'}, ...config})
     return await this.request.post(url, data, config)
   }
 
