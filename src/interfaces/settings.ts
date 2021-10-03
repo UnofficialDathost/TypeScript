@@ -64,6 +64,12 @@ export interface IMatchSettings {
     knifeRound?: boolean
     waitForSpectators?: boolean
     warmupTime?: number
+    enablePause?: boolean
+    enableReady?: boolean
+    enableTechPause?: boolean
+    readMinPlayers?: number
+    waitForCoaches?: boolean
+
 }
 
 export interface IWebhookSettings {

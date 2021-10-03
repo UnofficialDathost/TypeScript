@@ -19,6 +19,13 @@ export interface IMatch {
   team2_steam_ids:            string[];
   wait_for_spectators:        boolean;
   warmup_time:                number;
+  enable_pause:               boolean;
+  enable_ready:               boolean;
+  enable_tech_pause:          boolean;
+  ready_min_players:          number;
+  team1_coach_steam_id:       string;
+  team2_coach_steam_id:       string;
+  wait_for_coaches:           boolean;
 }
 
 export interface PlayerStat {

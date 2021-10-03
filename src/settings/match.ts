@@ -15,6 +15,16 @@ export default class MatchSettings {
         this.payload.append('wait_for_spectators', settings.waitForSpectators.toString())
     if (typeof settings.warmupTime !== 'undefined')
         this.payload.append('warmup_time', settings.warmupTime.toString())
+    if (typeof settings.enablePause !== 'undefined')
+        this.payload.append('enable_pause', settings.enablePause.toString())
+    if (typeof settings.enableReady !== 'undefined')
+        this.payload.append('enable_ready', settings.enableReady.toString())
+    if (typeof settings.enableTechPause !== 'undefined')
+        this.payload.append('enable_tech_pause', settings.enableTechPause.toString())
+    if (typeof settings.readMinPlayers !== 'undefined')
+        this.payload.append('ready_min_players', settings.readMinPlayers.toString())
+    if (typeof settings.waitForCoaches !== 'undefined')
+        this.payload.append('wait_for_coaches', settings.waitForCoaches.toString())
   }
 
   /** 
@@ -48,13 +58,17 @@ export default class MatchSettings {
     return formattedPlayers.substring(1)
   }
 
-  public spectators(players: Array<string | number>): this {
+  public spectators(players: Array<string | number>, coach?: string | number): this {
     this.payload.append('spectator_steam_ids', this.formatPlayers(players))
+    if (coach !== 'undefined')
+        this.payload.append('team1_coach_steam_id', new SteamID(coach).steam2(true))
     return this
   }
 
-  public team_1(players: Array<string | number>): this {
+  public team_1(players: Array<string | number>, coach?: string | number): this {
     this.payload.append('team1_steam_ids', this.formatPlayers(players))
+    if (coach !== 'undefined')
+        this.payload.append('team1_coach_steam_id', new SteamID(coach).steam2(true))
     return this
   }
 
