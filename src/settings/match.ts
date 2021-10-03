@@ -60,14 +60,14 @@ export default class MatchSettings {
 
   public spectators(players: Array<string | number>, coach?: string | number): this {
     this.payload.append('spectator_steam_ids', this.formatPlayers(players))
-    if (coach !== 'undefined')
+    if (typeof coach !== 'undefined')
         this.payload.append('team1_coach_steam_id', new SteamID(coach.toString()).steam2(true))
     return this
   }
 
   public team_1(players: Array<string | number>, coach?: string | number): this {
     this.payload.append('team1_steam_ids', this.formatPlayers(players))
-    if (coach !== 'undefined')
+    if (typeof coach !== 'undefined')
         this.payload.append('team1_coach_steam_id', new SteamID(coach.toString()).steam2(true))
     return this
   }
