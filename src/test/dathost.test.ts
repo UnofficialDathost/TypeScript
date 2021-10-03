@@ -458,10 +458,6 @@ describe('Dathost Tests', () => {
       return expect(server[1].regenerateFtpPassword()).resolves.not.toThrow()
     })
 
-    test('Sync server', () => {
-      return expect(server[1].syncFiles()).resolves.not.toThrow()
-    })
-
     test('Duplicate Server', () => {
       return server[1].duplicate().then(data => {
         expect(data[0]).toBeInstanceOf(Object)
